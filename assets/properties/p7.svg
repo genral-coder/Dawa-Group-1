@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1016"/><stop offset="1" stop-color="#331c24"/></linearGradient></defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="150" cy="130" r="55" fill="#F72585" opacity="0.5"/><circle cx="150" cy="130" r="85" fill="#F72585" opacity="0.12"/>
+  <g fill="#160a10">
+    <rect x="100" y="180" width="600" height="420"/>
+    <rect x="85" y="155" width="630" height="35"/>
+    <polygon points="85,175 715,175 400,95"/>
+  </g>
+  <g fill="#47213a">
+    <rect x="140" y="220" width="90" height="100"/><rect x="260" y="220" width="90" height="100"/>
+    <rect x="380" y="220" width="90" height="100"/><rect x="500" y="220" width="90" height="100"/>
+    <rect x="140" y="360" width="90" height="100"/><rect x="260" y="360" width="90" height="100"/>
+    <rect x="380" y="360" width="90" height="100"/><rect x="500" y="360" width="90" height="100"/>
+    <rect x="140" y="500" width="90" height="80"/><rect x="260" y="500" width="90" height="80"/>
+    <rect x="380" y="500" width="90" height="80"/><rect x="500" y="500" width="90" height="80"/>
+  </g>
+  <g fill="#F72585" opacity="0.85">
+    <rect x="260" y="220" width="90" height="100"/><rect x="380" y="360" width="90" height="100"/><rect x="500" y="500" width="90" height="80"/>
+  </g>
+  <rect x="355" y="490" width="90" height="110" fill="#F72585" opacity="0.9"/>
+  <rect x="0" y="570" width="800" height="30" fill="#120810"/>
+  <g fill="#190c13" opacity="0.9"><rect x="0" y="530" width="120" height="70"/><rect x="680" y="520" width="120" height="80"/></g>
+  <g fill="#F72585" opacity="0.18"><circle cx="700" cy="450" r="40"/></g>
+</svg>
