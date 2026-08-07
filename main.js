@@ -233,32 +233,52 @@ function switchGallery(key) {
     b.textContent = lbl[lang];
   });
 
-  wrapper.innerHTML = gallery.images.map((img, i) => `
+  wrapper.innerHTML = gallery.images.map((img) => `
     <div class="slider-item" style="background-image:url('${img}');background-size:cover;background-position:center;background-repeat:no-repeat;cursor:pointer;"
          onclick="openImageOverlay('${img}')"></div>
   `).join("");
 
-  currentIndex = 1;
+  currentIndex = 0;
   updateSlider();
+}
+
+function sliderMetrics(wrapper, items) {
+  if (!items.length) return { step: 0, visible: 1, max: 0, count: 0 };
+  const a = items[0], b = items[1];
+  let gap = 0;
+  if (b) {
+    const ar = a.getBoundingClientRect();
+    const br = b.getBoundingClientRect();
+    gap = Math.max(0, br.left - (ar.left + ar.width));
+  }
+  const step = a.getBoundingClientRect().width + gap;
+  const visible = step ? Math.max(1, Math.round(wrapper.clientWidth / step)) : 1;
+  const max = Math.max(items.length - visible, 0);
+  return { step, visible, max, count: items.length };
 }
 
 function updateSlider() {
   const wrapper = document.getElementById("sliderWrapper");
+  if (!wrapper) return;
   const items = wrapper.querySelectorAll(".slider-item");
-  const max = Math.max(items.length - 2, 1);
-  currentIndex = Math.max(1, Math.min(currentIndex, max));
-  const translateValue = -currentIndex * 37 + "%";
-  wrapper.style.transform = `translateX(${translateValue})`;
+  const m = sliderMetrics(wrapper, items);
+  currentIndex = Math.max(0, Math.min(currentIndex, m.max));
+  wrapper.style.transform = `translateX(${-currentIndex * m.step}px)`;
 }
 
 function goToNext() {
-  const items = document.querySelectorAll("#sliderWrapper .slider-item").length;
-  const max = Math.max(items - 2, 1);
-  currentIndex = currentIndex >= max ? 1 : currentIndex + 1;
+  const wrapper = document.getElementById("sliderWrapper");
+  if (!wrapper) return;
+  const m = sliderMetrics(wrapper, wrapper.querySelectorAll(".slider-item"));
+  if (m.count <= m.visible) return;
+  currentIndex = currentIndex >= m.max ? 0 : currentIndex + 1;
   updateSlider();
 }
 function goToPrev() {
-  currentIndex -= 1;
+  const wrapper = document.getElementById("sliderWrapper");
+  if (!wrapper) return;
+  const m = sliderMetrics(wrapper, wrapper.querySelectorAll(".slider-item"));
+  currentIndex = currentIndex <= 0 ? m.max : currentIndex - 1;
   updateSlider();
 }
 
@@ -271,10 +291,29 @@ function initSlider() {
   nextBtn.addEventListener("click", goToNext);
   prevBtn.addEventListener("click", goToPrev);
 
-  const stop = () => clearInterval(autoSlideInterval);
-  const start = () => { stop(); autoSlideInterval = setInterval(goToNext, 3000); };
+  /* reset on resize so the maths stays correct */
+  window.addEventListener("resize", () => { if (sliderEl) updateSlider(); });
 
+  /* touch swipe (phone / tablet) */
+  let startX = null;
+  if (sliderEl) {
+    sliderEl.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      stop();
+    }, { passive: true });
+    sliderEl.addEventListener("touchend", (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) (dx < 0 ? goToNext() : goToPrev());
+      startX = null;
+      start();
+    }, { passive: true });
+  }
+
+  const stop = () => clearInterval(autoSlideInterval);
+  const start = () => { stop(); autoSlideInterval = setInterval(goToNext, 4000); };
   [nextBtn, prevBtn, sliderEl].forEach((el) => {
+    if (!el) return;
     el.addEventListener("mouseenter", stop);
     el.addEventListener("mouseleave", start);
     el.addEventListener("touchstart", stop);
