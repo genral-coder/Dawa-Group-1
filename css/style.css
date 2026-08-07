@@ -2098,7 +2098,8 @@ footer {
   .cta-nav { display: none; }
 
   /* ---- HERO BANNER ---- */
-  .hero-banner { height: 62vh; margin-top: 5.5rem; }
+  .hero-banner { height: auto; aspect-ratio: 2.3; margin-top: 5.5rem; }
+  .hero-banner .b-slide img { object-fit: contain; }
 
   /* ---- HERO ---- */
   .hero { padding: 4rem 0 4.5rem; }
@@ -2211,7 +2212,7 @@ footer {
 
 /* ===== PHONE (≤520, covers most phones) ===== */
 @media (max-width: 520px) {
-  .hero-banner { height: 55vh; }
+  .hero-banner { height: auto; aspect-ratio: 2.3; }
   .hero-content h1 { font-size: 2.1rem; }
   .hero-badge { font-size: 0.68rem; padding: 0.4rem 1rem; }
   .what-is-dawa .features { grid-template-columns: repeat(2, 1fr); }
@@ -2231,7 +2232,7 @@ footer {
 
 /* ===== SMALL PHONE (≤360, tiny/old devices) ===== */
 @media (max-width: 360px) {
-  .hero-banner { height: 50vh; }
+  .hero-banner { height: auto; aspect-ratio: 2.3; }
   .hero-content h1 { font-size: 1.9rem; }
   .what-is-dawa .content .title { font-size: 1.8rem; }
   .what-is-dawa .logo-big { width: 8.5rem; height: 8.5rem; }
