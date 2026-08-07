@@ -2100,11 +2100,11 @@ footer {
   .hero-scroll { display: none; }
 
   /* ---- SERVICE CARDS ---- */
-  .card-container { margin-top: 0; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 2rem; }
-  .card { margin: 2.5rem 0 0.5rem; width: 100%; }
-  .card-style { width: 5.5rem; height: 5.5rem; margin-top: -4rem; }
+  .card-container { margin-top: 0; flex-direction: column; align-items: center; gap: 2rem; margin-bottom: 2rem; }
+  .card { margin: 0; width: 100%; }
+  .card-style { width: 5.5rem; height: 5.5rem; margin-top: 0; }
   .card-style img { width: 2.6rem; height: 2.6rem; }
-  .card .title { padding: 1.8rem 0 0.8rem; font-size: 1.4rem; }
+  .card .title { padding: 1.1rem 0 0.6rem; font-size: 1.4rem; }
   .card .text { width: min(19rem, 86vw); font-size: 0.95rem; line-height: 1.8; }
 
   /* ---- WHAT IS DAWA ---- */
