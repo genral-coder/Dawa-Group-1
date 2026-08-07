@@ -233,8 +233,9 @@ function switchGallery(key) {
     b.textContent = lbl[lang];
   });
 
-  wrapper.innerHTML = gallery.images.map((img, i) => `
-    <div class="slider-item" style="background-image:url('${img}');background-size:cover;background-position:center;background-repeat:no-repeat;cursor:pointer;"
+  const fit = window.innerWidth <= 768 ? "contain" : "cover";
+  wrapper.innerHTML = gallery.images.map((img) => `
+    <div class="slider-item" style="background-image:url('${img}');background-size:${fit};background-position:center;background-repeat:no-repeat;background-color:#0e1626;cursor:pointer;"
          onclick="openImageOverlay('${img}')"></div>
   `).join("");
 
