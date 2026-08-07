@@ -85,6 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* ===== SCROLL REVEAL ===== */
 function initReveal() {
+  const els = document.querySelectorAll(".hidden, .hidden-right, .hidden-zoom");
+  /* on mobile show everything immediately (no fancy reveal that can get stuck) */
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    els.forEach((el) => el.classList.add("show"));
+    return;
+  }
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -93,12 +99,18 @@ function initReveal() {
       }
     });
   }, { threshold: 0.12 });
-
-  document.querySelectorAll(".hidden, .hidden-right, .hidden-zoom").forEach((el) => observer.observe(el));
+  els.forEach((el) => observer.observe(el));
 }
 
 /* ===== COUNTERS ===== */
 function initCounters() {
+  const nums = document.querySelectorAll(".stat .num[data-count]");
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    nums.forEach((el) => {
+      el.textContent = parseInt(el.getAttribute("data-count"), 10) + (el.getAttribute("data-suffix") || "");
+    });
+    return;
+  }
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -117,7 +129,7 @@ function initCounters() {
       observer.unobserve(el);
     });
   }, { threshold: 0.5 });
-  document.querySelectorAll(".stat .num[data-count]").forEach((el) => observer.observe(el));
+  nums.forEach((el) => observer.observe(el));
 }
 
 /* ===== PROPERTY CARDS ===== */
