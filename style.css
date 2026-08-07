@@ -2059,7 +2059,7 @@ footer {
 @media (max-width: 768px) {
   :root { font-size: 14px; }
 
-  html, body { overflow-x: hidden; }
+  html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
 
   /* ---- NAV ---- */
   nav { padding: 0 1.25rem; height: 5rem; }
