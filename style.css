@@ -2061,6 +2061,19 @@ footer {
 
   html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
 
+  /* ---- FORCE FULL-WIDTH + CENTER (fixes text hugging left) ---- */
+  .section, .what-is-dawa, .service-section, .featured, .testimonials,
+  .stats-band, .slider, .card-container, .stats-grid, .testi-grid,
+  footer, .contact-us, .card {
+    width: 100%;
+    max-width: 100%;
+  }
+  .section-title, .section-sub, .hero-content, .what-is-dawa .content,
+  .service-section .content, .testi .quote, .testi .stars, .contact-us,
+  .contact-us h1, .contact-us .c-sub, .details-body {
+    text-align: center;
+  }
+
   /* ---- NAV ---- */
   nav { padding: 0 1.25rem; height: 5rem; }
   nav.scrolled { height: 4.2rem; }
