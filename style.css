@@ -2208,20 +2208,38 @@ footer {
   .top-botton { bottom: 1.2rem; right: 1.2rem; }
 }
 
-/* ===== PHONE (very small screens) ===== */
-@media (max-width: 400px) {
+/* ===== PHONE (≤520, covers most phones) ===== */
+@media (max-width: 520px) {
   .hero-banner { height: 55vh; }
   .hero-content h1 { font-size: 2.1rem; }
   .hero-badge { font-size: 0.68rem; padding: 0.4rem 1rem; }
   .what-is-dawa .features { grid-template-columns: repeat(2, 1fr); }
-  .what-is-dawa .feature { font-size: 0.8rem; }
-  .what-is-dawa .content .title { font-size: 1.9rem; }
-  .what-is-dawa .logo-big { width: 9.5rem; height: 9.5rem; }
-  .section-title { font-size: 1.7rem; }
-  .service-section .content .title { font-size: 1.9rem; }
+  .what-is-dawa .feature { font-size: 0.82rem; padding: 0.8rem 0.4rem; }
+  .what-is-dawa .content .title { font-size: 2rem; }
+  .what-is-dawa .logo-big { width: 10rem; height: 10rem; }
+  .section-title { font-size: 1.8rem; }
+  .service-section .content .title { font-size: 2rem; }
   .stats-grid { gap: 1rem; }
+  .stat .num { font-size: 2.1rem; }
+  .specs-table { grid-template-columns: 1fr 1fr; }
+  .details-body h1 { font-size: 1.6rem !important; }
+  .slider-item { flex: 0 0 88%; min-height: 260px; }
+  .slider-controls button { width: 50px; height: 50px; margin: 1.5rem 6px 0; }
+  .card .text { width: min(19rem, 92vw); }
+}
+
+/* ===== SMALL PHONE (≤360, tiny/old devices) ===== */
+@media (max-width: 360px) {
+  .hero-banner { height: 50vh; }
+  .hero-content h1 { font-size: 1.9rem; }
+  .what-is-dawa .content .title { font-size: 1.8rem; }
+  .what-is-dawa .logo-big { width: 8.5rem; height: 8.5rem; }
+  .what-is-dawa .feature .n { font-size: 1.05rem; }
+  .section-title { font-size: 1.6rem; }
+  .service-section .content .title { font-size: 1.8rem; }
+  .service-section .content .btn { font-size: 1.05rem; padding: 1rem 2rem; }
   .specs-table { grid-template-columns: 1fr; }
-  .details-body h1 { font-size: 1.5rem !important; }
-  .slider-item { flex: 0 0 88%; min-height: 250px; }
-  .slider-controls button { width: 48px; height: 48px; margin: 1.5rem 6px 0; }
+  .slider-item { flex: 0 0 90%; }
+  .props-track .property-card { width: 90vw; }
+  .work-slider .w-item { width: 88vw; }
 }
