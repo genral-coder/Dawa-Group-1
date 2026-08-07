@@ -2157,10 +2157,11 @@ footer {
   .service-section .service-item { font-size: 0.95rem; padding: 0.85rem 1.3rem; }
 
   /* ---- FINISHING WORK GALLERY ---- */
-  #ourwork { padding-top: 0 !important; }
-  .work-slider { gap: 0.5rem; }
-  .work-nav { width: 42px; height: 42px; font-size: 1.1rem; }
-  .work-slider .w-item { width: 85vw; }
+  #ourwork { width: 100vw; max-width: 100vw; margin: 0 auto; padding-top: 0 !important; overflow: hidden; }
+  .work-slider { gap: 0.5rem; width: 100%; max-width: 100%; }
+  .work-slider .work-viewport { width: 100%; min-width: 0; max-width: 100%; overflow: hidden; }
+  .work-nav { width: 42px; height: 42px; font-size: 1.1rem; flex: 0 0 auto; }
+  .work-slider .w-item { width: min(20rem, 62vw); }
 
   /* ---- TESTIMONIALS ---- */
   .testimonials { padding: 4rem 0; }
@@ -2240,6 +2241,6 @@ footer {
   .service-section .content .btn { font-size: 1.05rem; padding: 1rem 2rem; }
   .specs-table { grid-template-columns: 1fr; }
   .slider-item { flex: 0 0 90%; }
-  .props-track .property-card { width: 90vw; }
-  .work-slider .w-item { width: 88vw; }
+  .props-track .property-card { width: 86vw; }
+  .work-slider .w-item { width: min(20rem, 62vw); }
 }
