@@ -87,23 +87,31 @@ document.addEventListener("DOMContentLoaded", () => {
 function initReveal() {
   const els = document.querySelectorAll(".hidden, .hidden-right, .hidden-zoom");
   els.forEach((el) => el.classList.remove("show"));
-  if (!("IntersectionObserver" in window)) {
-    els.forEach((el) => el.classList.add("show"));
-    return;
-  }
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        obs.unobserve(entry.target);
+  const shown = new Set();
+
+  function revealNow() {
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const limit = vh * 0.92;
+    els.forEach((el) => {
+      if (shown.has(el)) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < limit) {
+        el.classList.add("show");
+        shown.add(el);
       }
     });
-  }, { threshold: 0.12 });
-  els.forEach((el) => observer.observe(el));
-  /* safety net: never leave content invisible (this also guarantees
-     nothing stays hidden on low-spec phones or slow scrolls) */
+  }
+
+  window.addEventListener("scroll", revealNow, { passive: true });
+  window.addEventListener("resize", revealNow);
+  if (document.readyState === "loading") {
+    window.addEventListener("load", revealNow);
+  }
+  setTimeout(revealNow, 300);
+  setTimeout(revealNow, 900);
+  /* safety net: never leave content invisible on any device */
   setTimeout(() => {
-    document.querySelectorAll(".hidden, .hidden-right, .hidden-zoom").forEach((el) => el.classList.add("show"));
+    els.forEach((el) => el.classList.add("show"));
   }, 6000);
 }
 
