@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ===== SCROLL REVEAL ===== */
+const REVEAL_MARGIN = 60;
 function initReveal() {
   const els = document.querySelectorAll(".hidden, .hidden-right, .hidden-zoom");
   els.forEach((el) => el.classList.remove("show"));
@@ -91,7 +92,7 @@ function initReveal() {
 
   function revealNow() {
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    const limit = vh * 0.92;
+    const limit = vh - REVEAL_MARGIN;
     els.forEach((el) => {
       if (shown.has(el)) return;
       const r = el.getBoundingClientRect();
@@ -107,8 +108,8 @@ function initReveal() {
   if (document.readyState === "loading") {
     window.addEventListener("load", revealNow);
   }
-  setTimeout(revealNow, 300);
-  setTimeout(revealNow, 900);
+  setTimeout(revealNow, 200);
+  setTimeout(revealNow, 600);
   /* safety net: never leave content invisible on any device */
   setTimeout(() => {
     els.forEach((el) => el.classList.add("show"));
