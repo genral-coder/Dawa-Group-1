@@ -2055,93 +2055,160 @@ footer {
   }
 }
 
-/* ===== MOBILE POLISH (applied after the 768 block) ===== */
+/* ===== FULL MOBILE DESIGN (PC/base CSS unchanged) ===== */
 @media (max-width: 768px) {
-  .container { padding: 0 1.5rem; }
+  :root { font-size: 14px; }
 
+  html, body { overflow-x: hidden; }
+
+  /* ---- NAV ---- */
   nav { padding: 0 1.25rem; height: 5rem; }
   nav.scrolled { height: 4.2rem; }
   .gx-logo img { height: 2.5rem; max-width: 2.8rem; }
+  .gx-logo .logo-text { font-size: 1.3rem; }
+  .lang-toggle { padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+  .navbar-list { display: none; }
+  .navbar-list.active {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    width: 100%; height: 100vh;
+    background-color: #060b16f7;
+    z-index: 9990;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .navbar-list.active a { font-size: 1.25rem; padding: 0.9rem 1.4rem; }
+  .burger-icon { display: block; order: 3; }
+  .cta-nav { display: none; }
 
-  .hero-banner { height: 60vh; margin-top: 5.5rem; }
+  /* ---- HERO BANNER ---- */
+  .hero-banner { height: 62vh; margin-top: 5.5rem; }
 
-  .hero { padding: 4rem 0 2rem; }
-  .hero-content { padding: 0.5rem 1.25rem 2rem; }
-  .hero-badge { letter-spacing: 2px; font-size: 0.75rem; }
-  .hero-content h1 { font-size: 2.3rem; }
-  .hero-cta { width: 100%; gap: 1rem; }
+  /* ---- HERO ---- */
+  .hero { padding: 4rem 0 4.5rem; }
+  .hero-content { max-width: 100%; padding: 1rem 1.5rem 1rem; }
+  .hero-badge { padding: 0.5rem 1.2rem; font-size: 0.72rem; }
+  .hero-content h1 { font-size: 2.4rem; }
+  .hero-content .text { display: none; }
+  .hero-content .text2 { display: block; color: var(--text); font-size: 1rem; line-height: 1.8; }
+  .hero-cta { flex-direction: column; width: 100%; gap: 1rem; align-items: center; }
   .hero-cta .btn-main,
-  .hero-cta .btn-ghost { flex: 1; text-align: center; padding: 0.95rem 1.4rem; font-size: 0.95rem; }
+  .hero-cta .btn-ghost { width: 100%; max-width: 20rem; text-align: center; padding: 1rem 1.5rem; font-size: 1rem; }
+  .hero-scroll { display: none; }
 
-  .card-container { margin-top: 0; gap: 2rem; }
-  .card { margin: 2.5rem 0 0.5rem; }
-  .card .text { width: min(17rem, 84vw); }
+  /* ---- SERVICE CARDS ---- */
+  .card-container { margin-top: 0; flex-direction: column; align-items: center; gap: 1.5rem; margin-bottom: 2rem; }
+  .card { margin: 2.5rem 0 0.5rem; width: 100%; }
+  .card-style { width: 5.5rem; height: 5.5rem; margin-top: -4rem; }
+  .card-style img { width: 2.6rem; height: 2.6rem; }
+  .card .title { padding: 1.8rem 0 0.8rem; font-size: 1.4rem; }
+  .card .text { width: min(19rem, 86vw); font-size: 0.95rem; line-height: 1.8; }
 
-  .what-is-dawa { flex-direction: column; gap: 2.5rem; padding: 5rem 0 6rem; }
-  .what-is-dawa .logo-big { width: 12rem; height: 12rem; }
-  .what-is-dawa .content { padding: 0 1.5rem; }
+  /* ---- WHAT IS DAWA ---- */
+  .what-is-dawa { flex-direction: column; gap: 2rem; padding: 4rem 0 5rem; }
+  .what-is-dawa .logo-big { width: 11rem; height: 11rem; font-size: 3rem; }
+  .what-is-dawa .content { max-width: 100%; padding: 0 1.5rem; text-align: center; }
+  .what-is-dawa .content .title { font-size: 2.1rem; padding-bottom: 1.2rem; }
+  .what-is-dawa .content .text { font-size: 1rem; }
+  .what-is-dawa .features { grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-top: 2rem; padding: 0 0.5rem; }
+  .what-is-dawa .feature { padding: 0.8rem 0.4rem; font-size: 0.85rem; }
+  .what-is-dawa .feature .n { font-size: 1.2rem; }
 
+  /* ---- STATS ---- */
   .stats-band { padding: 2.5rem 0; }
-  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); row-gap: 1.75rem; }
+  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 0.5rem; }
+  .stat .num { font-size: 2.3rem; }
+  .stat .label { font-size: 0.85rem; }
 
-  .featured, .testimonials { padding: 4rem 0; }
-  .section-sub { margin-bottom: 2.5rem; }
+  /* ---- SECTION TITLES ---- */
+  .section-title { font-size: 2rem; padding-bottom: 0.8rem; }
+  .section-sub { font-size: 1rem; margin-bottom: 2.5rem; line-height: 1.8; }
 
-  .service-section { padding: 5rem 0 6rem; }
+  /* ---- FEATURED PROPERTIES ---- */
+  .featured { padding: 4rem 0; }
+  .props-track { gap: 1rem; }
+  .props-track .property-card { width: 86vw; }
+  .property-card .info h3 { font-size: 1.1rem; }
+  .section-btn-wrap { margin-top: 2.5rem; }
 
-  .slider-header { justify-content: center; text-align: center; margin-bottom: 2.5rem; }
-  .slider-header .gallery-list { justify-content: center; }
-  .slider-controls button { width: 56px; height: 56px; margin-top: 2rem; }
-  .slider-item { flex: 0 0 82%; width: auto; min-height: 300px; margin-left: 12px; }
+  /* ---- SERVICE SECTIONS (3 full) ---- */
+  .service-section { padding: 5rem 0 6.5rem; }
+  .service-section .content { max-width: 100%; padding: 0 1.5rem; }
+  .service-section .content .title { font-size: 2.2rem; }
+  .service-section .content .description { font-size: 1.05rem; line-height: 1.8; }
+  .service-section .content .btn { font-size: 1.15rem; padding: 1.1rem 2.6rem; margin-top: 3rem; margin-bottom: 0; }
+  .service-section .service-items { gap: 0.9rem; padding: 0 0.25rem; }
+  .service-section .service-item { font-size: 0.95rem; padding: 0.85rem 1.3rem; }
 
-  .work-slider { gap: 0.6rem; }
-  .work-nav { width: 44px; height: 44px; font-size: 1.2rem; }
+  /* ---- FINISHING WORK GALLERY ---- */
+  #ourwork { padding-top: 0 !important; }
+  .work-slider { gap: 0.5rem; }
+  .work-nav { width: 42px; height: 42px; font-size: 1.1rem; }
+  .work-slider .w-item { width: 85vw; }
 
-  .details-gallery .main-img { height: 22rem; }
-  .details-gallery .thumbs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.4rem; }
+  /* ---- TESTIMONIALS ---- */
+  .testimonials { padding: 4rem 0; }
+  .testi-grid { gap: 1.4rem; }
+  .testi { padding: 1.5rem; }
+
+  /* ---- GALLERY SLIDER ---- */
+  .slider-header { flex-direction: column; text-align: center; gap: 1.25rem; margin-bottom: 2.5rem; }
+  .slider-header .title { font-size: 2rem; }
+  .slider-header .gallery-list { justify-content: center; gap: 0.4rem; }
+  .slider-header button { padding: 0.5rem 1.1rem; font-size: 0.95rem; }
+  .slider-item { flex: 0 0 84%; width: auto; min-height: 300px; margin-left: 12px; }
+  .slider-controls button { width: 56px; height: 56px; font-size: 1.3rem; margin: 2rem 8px 0; }
+
+  /* ---- CONTACT ---- */
+  .contact-us { width: 100%; padding: 4rem 0; }
+  .contact-us h1 { font-size: 2rem; }
+  .contact-info-row { flex-direction: column; width: 100%; gap: 1rem; }
+  .contact-chip { justify-content: center; width: 100%; padding: 0.9rem 1.2rem; }
+  input, textarea { padding: 1.2rem; font-size: 1rem; }
+  form button { height: 4.6rem; font-size: 1.15rem; }
+
+  /* ---- FOOTER ---- */
+  footer { margin-top: 4rem; }
+  .footer-content { flex-direction: column; gap: 2.5rem; text-align: center; padding-top: 3.5rem; padding-bottom: 3rem; }
+  .footer-content .gamax,
+  .footer-content .usefull-links,
+  .footer-content .contact-us-footer { max-width: 100%; }
+  .footer-content .usefull-links .links { align-items: center; }
+  .footer-content h2 { margin-bottom: 1.25rem; }
+  .copyright { font-size: 0.85rem; }
+
+  /* ---- DETAILS PAGE ---- */
+  .page-hero { padding: 8rem 0 3rem; }
+  .details-main { padding: 2.5rem 0; }
+  .details-gallery .main-img { height: 21rem; }
+  .details-gallery .thumbs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 0.6rem; padding-bottom: 0.4rem; }
   .details-gallery .thumbs::-webkit-scrollbar { display: none; }
   .details-gallery .thumbs img { flex: 0 0 auto; width: 5.5rem; height: 4rem; }
-  .details-body { gap: 1.75rem; }
+  .details-body { grid-template-columns: 1fr; gap: 2rem; }
+  .side-card { position: static; padding: 1.5rem; }
+  .specs-table { grid-template-columns: 1fr 1fr; }
+  .details-body h2 { font-size: 1.5rem; }
 
-  .contact-us { width: 100%; padding: 4rem 0; }
-  .contact-info-row { flex-direction: column; width: 100%; gap: 1rem; }
-  .contact-chip { justify-content: center; width: 100%; }
-
-  footer { margin-top: 4rem; }
+  .top-botton { bottom: 1.2rem; right: 1.2rem; }
 }
 
-/* ===== PHONE (narrow) ===== */
-@media (max-width: 520px) {
+/* ===== PHONE (very small screens) ===== */
+@media (max-width: 400px) {
   .hero-banner { height: 55vh; }
-  .hero-content h1 { font-size: 2rem; }
-  .hero-content .text2 { font-size: 0.95rem; }
-
-  .hero-cta .btn-main,
-  .hero-cta .btn-ghost { width: 100%; }
-
+  .hero-content h1 { font-size: 2.1rem; }
+  .hero-badge { font-size: 0.68rem; padding: 0.4rem 1rem; }
   .what-is-dawa .features { grid-template-columns: repeat(2, 1fr); }
-  .what-is-dawa .feature { font-size: 0.82rem; padding: 0.8rem; }
-  .what-is-dawa .content .title { font-size: 2rem; }
-
-  .section-title { font-size: 1.8rem; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .stat .num { font-size: 2.2rem; }
-
-  .props-track .property-card { width: 88vw; }
-  .work-slider .w-item { width: 82vw; }
-
-  .gallery-list button { padding: 0.5rem 1rem; font-size: 0.9rem; }
-  .slider-controls button { width: 50px; height: 50px; font-size: 1.2rem; margin: 1.5rem 6px 0; }
-  .slider-item { flex: 0 0 86%; min-height: 260px; }
-
-  form button { height: 4.4rem; font-size: 1.1rem; }
-
-  .navbar-list.active a { font-size: 1.15rem; }
-
-  .page-hero { padding: 7rem 0 3rem; }
-  .details-main { padding: 2.5rem 0; }
-  .details-gallery .main-img { height: 20rem; }
-  .details-gallery .thumbs img { width: 5.5rem; height: 4rem; }
-  .side-card { position: static; padding: 1.5rem; }
+  .what-is-dawa .feature { font-size: 0.8rem; }
+  .what-is-dawa .content .title { font-size: 1.9rem; }
+  .what-is-dawa .logo-big { width: 9.5rem; height: 9.5rem; }
+  .section-title { font-size: 1.7rem; }
+  .service-section .content .title { font-size: 1.9rem; }
+  .stats-grid { gap: 1rem; }
   .specs-table { grid-template-columns: 1fr; }
+  .details-body h1 { font-size: 1.5rem !important; }
+  .slider-item { flex: 0 0 88%; min-height: 250px; }
+  .slider-controls button { width: 48px; height: 48px; margin: 1.5rem 6px 0; }
 }
