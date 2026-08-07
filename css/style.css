@@ -295,11 +295,11 @@ nav.scrolled {
   position: absolute;
   inset: 0;
   opacity: 0;
-  animation: bannerFade 8s infinite;
+  animation: bannerFade 16s infinite;
 }
 
 .hero-banner .b-slide:nth-child(1) { animation-delay: 0s; }
-.hero-banner .b-slide:nth-child(2) { animation-delay: 4s; }
+.hero-banner .b-slide:nth-child(2) { animation-delay: 8s; }
 
 .hero-banner .b-slide img {
   width: 100%;
