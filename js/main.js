@@ -86,20 +86,25 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ===== SCROLL REVEAL ===== */
 function initReveal() {
   const els = document.querySelectorAll(".hidden, .hidden-right, .hidden-zoom");
-  /* on mobile show everything immediately (no fancy reveal that can get stuck) */
-  if (window.matchMedia("(max-width: 768px)").matches) {
+  els.forEach((el) => el.classList.remove("show"));
+  if (!("IntersectionObserver" in window)) {
     els.forEach((el) => el.classList.add("show"));
     return;
   }
-  const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("show");
-        observer.unobserve(entry.target);
+        obs.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
   els.forEach((el) => observer.observe(el));
+  /* safety net: never leave content invisible (this also guarantees
+     nothing stays hidden on low-spec phones or slow scrolls) */
+  setTimeout(() => {
+    document.querySelectorAll(".hidden, .hidden-right, .hidden-zoom").forEach((el) => el.classList.add("show"));
+  }, 6000);
 }
 
 /* ===== COUNTERS ===== */
@@ -233,9 +238,8 @@ function switchGallery(key) {
     b.textContent = lbl[lang];
   });
 
-  const fit = window.innerWidth <= 768 ? "contain" : "cover";
   wrapper.innerHTML = gallery.images.map((img) => `
-    <div class="slider-item" style="background-image:url('${img}');background-size:${fit};background-position:center;background-repeat:no-repeat;background-color:#0e1626;cursor:pointer;"
+    <div class="slider-item" style="background-image:url('${img}');background-size:cover;background-position:center;background-repeat:no-repeat;cursor:pointer;"
          onclick="openImageOverlay('${img}')"></div>
   `).join("");
 
