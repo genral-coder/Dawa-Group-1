@@ -33,18 +33,21 @@
     <header class="app-header">
       <div class="app-title">لوحة تحكم <b>ضوه جروب</b></div>
       <div class="app-user">
+        <a class="btn-ghost" href="index.html" target="_blank">🌐 شوف الموقع</a>
         <span id="appEmail"></span>
         <button class="btn-ghost" onclick="doLogout()">خروج</button>
       </div>
     </header>
 
     <nav class="tabs" id="tabs">
-      <button data-tab="properties" class="active">العقارات</button>
-      <button data-tab="content">الكلام والنصوص</button>
-      <button data-tab="categories">الكتيغوريز (المعرض)</button>
-      <button data-tab="packages">الباقات والأسعار</button>
-      <button data-tab="testimonials">آراء العملاء</button>
+      <button data-tab="properties" class="active">🏠 العقارات</button>
+      <button data-tab="content">📝 الكلام والنصوص</button>
+      <button data-tab="categories">🖼️ أقسام المعرض</button>
+      <button data-tab="packages">💰 الباقات والأسعار</button>
+      <button data-tab="testimonials">⭐ آراء العملاء</button>
     </nav>
+
+    <div class="guide"><b>كيف تستخدم اللوحة؟</b> اضغط على أي تبويب فوق، ثم اضغط "إضافة" لعمل حاجة جديدة أو "تعديل" جنب أي سطر. أي تغيير تتسجل فورًا على الموقع.</div>
 
     <main class="main">
       <!-- PROPERTIES -->
@@ -54,7 +57,7 @@
           <button class="btn-ghost" onclick="importDefaults('properties')">استيراد العقارات الحالية</button>
         </div>
         <div class="table-wrap"><table id="tbl-properties"><thead><tr>
-          <th>العنوان</th><th>الموقع</th><th>السعر</th><th>النوع</th><th>ترتيب</th><th></th>
+          <th>العنوان</th><th>السعر</th><th>ترتيب</th><th></th>
         </tr></thead><tbody></tbody></table></div>
       </section>
 
@@ -75,7 +78,7 @@
           <button class="btn-ghost" onclick="importDefaults('categories')">استيراد الكتيغوريز الحالية</button>
         </div>
         <div class="table-wrap"><table id="tbl-categories"><thead><tr>
-          <th>المفتاح</th><th>الاسم عربي</th><th>الاسم إنجليزي</th><th>عدد الصور</th><th>ترتيب</th><th></th>
+          <th>القسم</th><th>عدد الصور</th><th>ترتيب</th><th></th>
         </tr></thead><tbody></tbody></table></div>
       </section>
 
@@ -86,7 +89,7 @@
           <button class="btn-ghost" onclick="importDefaults('packages')">استيراد الباقات الحالية</button>
         </div>
         <div class="table-wrap"><table id="tbl-packages"><thead><tr>
-          <th>الباقة</th><th>السعر</th><th>مميزة</th><th>ترتيب</th><th></th>
+          <th>الباقة</th><th>السعر</th><th>مميزة</th><th></th>
         </tr></thead><tbody></tbody></table></div>
       </section>
 
@@ -97,7 +100,7 @@
           <button class="btn-ghost" onclick="importDefaults('testimonials')">استيراد الآراء الحالية</button>
         </div>
         <div class="table-wrap"><table id="tbl-testimonials"><thead><tr>
-          <th>الاسم</th><th>الوظيفة</th><th>النجوم</th><th>ترتيب</th><th></th>
+          <th>الاسم</th><th>النجوم</th><th></th>
         </tr></thead><tbody></tbody></table></div>
       </section>
     </main>
