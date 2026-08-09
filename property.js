@@ -8,8 +8,9 @@ function langText(obj) {
 
 function findProperty() {
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id") || DAWA_DATA.properties[0].id;
-  return DAWA_DATA.properties.find((p) => p.id === id) || DAWA_DATA.properties[0];
+  const props = (window.SITE && window.SITE.properties.length) ? window.SITE.properties : window.DAWA_DATA.properties;
+  const id = params.get("id") || props[0].id;
+  return props.find((p) => p.id === id) || props[0];
 }
 
 function applyLang() {
@@ -20,8 +21,12 @@ function applyLang() {
   localStorage.setItem("dawa-lang", currentLang);
 
   document.querySelectorAll("[data-ar]").forEach((el) => {
-    const val = currentLang === "ar" ? el.getAttribute("data-ar") : el.getAttribute("data-en");
-    if (val !== null) el.textContent = val;
+    const key = el.getAttribute("data-key");
+    const ar = el.getAttribute("data-ar");
+    const en = el.getAttribute("data-en");
+    const s = key && window.SITE && window.SITE.content && window.SITE.content[key];
+    const val = s ? (currentLang === "ar" ? s.ar : s.en) : (currentLang === "ar" ? ar : en);
+    if (val !== null && val !== undefined) el.textContent = val;
   });
 
   const btn = document.getElementById("langToggle");
@@ -108,7 +113,8 @@ function renderDetails() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  window.SITE = await window.SiteData.get();
   currentProp = findProperty();
   applyLang();
 

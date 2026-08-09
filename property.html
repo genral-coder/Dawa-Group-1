@@ -33,7 +33,7 @@
   </nav>
 
   <div class="page-hero">
-    <div class="crumb"><a href="index.html" data-ar="الرئيسية" data-en="Home">Home</a> <span data-ar=" / عقارات" data-en=" / Properties"> / Properties</span></div>
+    <div class="crumb"><a href="index.html" data-key="nav-home" data-ar="الرئيسية" data-en="Home">Home</a> <span data-key="crumb-props" data-ar=" / عقارات" data-en=" / Properties"> / Properties</span></div>
   </div>
 
   <div class="container details-main" id="details"></div>
@@ -42,10 +42,10 @@
     <div class="container footer-content">
       <div class="gamax">
         <img src="assets/who-are-we.png" alt="Dawa Group">
-        <p data-ar="ضوه جروب - شريكك الأمين في العالم العقاري." data-en="DAWA Group - your trusted partner in the real estate world.">DAWA Group - your trusted partner in the real estate world.</p>
+        <p data-key="footer-about" data-ar="ضوه جروب - شريكك الأمين في العالم العقاري." data-en="DAWA Group - your trusted partner in the real estate world.">DAWA Group - your trusted partner in the real estate world.</p>
       </div>
       <div class="usefull-links">
-        <h2 data-ar="روابط مفيدة" data-en="Useful Links">Useful Links</h2>
+        <h2 data-key="footer-links-title" data-ar="روابط مفيدة" data-en="Useful Links">Useful Links</h2>
         <div class="links">
           <a href="index.html" data-ar="الرئيسية" data-en="Home">Home</a>
           <a href="index.html#properties" data-ar="عقارات" data-en="Properties">Properties</a>
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="contact-us-footer">
-        <h2 data-ar="تواصل معنا" data-en="Contact Us">Contact Us</h2>
+        <h2 data-key="footer-contact-title" data-ar="تواصل معنا" data-en="Contact Us">Contact Us</h2>
         <div class="contact-info">
           <h3 data-ar="الهاتف" data-en="Phone">Phone</h3>
           <div>+20 111 781 6248</div>
@@ -73,6 +73,9 @@
   </div>
 
   <script src="js/data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/site-data.js"></script>
   <script src="js/property.js"></script>
 </body>
 </html>
