@@ -56,11 +56,20 @@
           </div>
         </div>
         <div class="preview-bar">
-          <span>معاينة الموقع (الواجهة الرئيسية)</span>
-          <button class="btn-ghost" onclick="reloadPreview()">↻ تحديث المعاينة</button>
+          <span>معاينة الموقع</span>
+          <div class="dev-toggle">
+            <button class="dv active" onclick="setPreviewW(this,'100%')">🖥️ حاسوب</button>
+            <button class="dv" onclick="setPreviewW(this,'768')">💻 تابلت</button>
+            <button class="dv" onclick="setPreviewW(this,'390')">📱 تلفون</button>
+          </div>
+          <input type="number" id="previewW" placeholder="عرض مخصص px" value="">
+          <button class="btn-ghost" onclick="applyCustomW()">تطبيق</button>
+          <button class="btn-ghost" onclick="reloadPreview()">↻ تحديث</button>
           <a class="btn-gold small" href="index.html" target="_blank">فتح في تبويب جديد ↗</a>
         </div>
-        <iframe id="previewFrame" class="preview" src="index.html"></iframe>
+        <div class="preview-frame">
+          <iframe id="previewFrame" class="preview" src="index.html"></iframe>
+        </div>
       </section>
 
       <!-- CONTENT -->
