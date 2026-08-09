@@ -100,31 +100,45 @@ function companyVal(key) {
   const c = window.SITE && window.SITE.content;
   return (c && c[key] && c[key].en) ? c[key].en.trim() : "";
 }
+function companyList(key) {
+  const v = companyVal(key);
+  return v ? v.split("\n").map((s) => s.trim()).filter(Boolean) : [];
+}
 function applyCompanyData() {
-  const phone = companyVal("site-phone");
-  const email = companyVal("site-email");
-  const wa = companyVal("site-whatsapp");
+  const phones = companyList("site-phone");
+  const emails = companyList("site-email");
+  const waList = companyList("site-whatsapp");
   const fb = companyVal("site-facebook");
   const insta = companyVal("site-instagram");
-  if (phone) {
-    const tel = "tel:" + phone.replace(/[^\d+]/g, "");
-    document.querySelectorAll("[data-c-phone]").forEach((el) => {
-      el.textContent = phone;
-      const a = el.tagName === "A" ? el : el.closest("a");
-      if (a) a.href = tel;
+  const renderList = (sel, items, hrefFn) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      if (items.length === 1) {
+        const v = items[0];
+        el.textContent = v;
+        const a = el.tagName === "A" ? el : el.closest("a");
+        if (a) a.href = hrefFn(v);
+      } else if (items.length > 1) {
+        el.innerHTML = items.map((v) => '<a href="' + escAttr(hrefFn(v)) + '" style="display:block;text-decoration:none;color:inherit">' + escAttr(v) + "</a>").join("");
+      }
     });
-  }
-  if (email) {
-    const ma = "mailto:" + email;
-    document.querySelectorAll("[data-c-email]").forEach((el) => {
-      el.textContent = email;
-      const a = el.tagName === "A" ? el : el.closest("a");
-      if (a) a.href = ma;
-    });
-  }
-  if (wa) {
-    const href = "https://wa.me/" + wa;
+  };
+  renderList("[data-c-phone]", phones, (v) => "tel:" + v.replace(/[^\d+]/g, ""));
+  renderList("[data-c-email]", emails, (v) => "mailto:" + v);
+  if (waList.length) {
+    const href = "https://wa.me/" + waList[0].replace(/[^\d]/g, "");
     document.querySelectorAll("[data-c-wa]").forEach((el) => { if (el.tagName === "A") el.href = href; });
+    if (waList.length > 1) {
+      const row = document.querySelector(".contact-info-row");
+      if (row) {
+        waList.slice(1).forEach((w) => {
+          const chip = document.createElement("div");
+          chip.className = "contact-chip";
+          const icon = '<span class="ic"><img src="assets/icons/whatsapp.svg" alt=""></span>';
+          chip.innerHTML = icon + '<span class="tx"><a href="https://wa.me/' + w.replace(/[^\d]/g, "") + '" style="color:inherit;text-decoration:none">' + escAttr(w) + "</a></span>";
+          row.appendChild(chip);
+        });
+      }
+    }
   }
   const setHref = (sel, v) => { if (!v || v === "#") return; const el = document.querySelector(sel); if (el) el.href = v; };
   setHref("[data-c-fb]", fb);
@@ -525,7 +539,8 @@ function closeImageOverlay() {
 /* ===== CONTACT ===== */
 function waNumber() {
   const v = companyVal("site-whatsapp");
-  return v ? v.replace(/[^\d]/g, "") : "201117816248";
+  const first = v ? v.split("\n")[0].trim() : "";
+  return first ? first.replace(/[^\d]/g, "") : "201117816248";
 }
 function initContactForm() {
   const form = document.getElementById("contactForm");
