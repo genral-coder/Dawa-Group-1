@@ -59,11 +59,17 @@ body { background: var(--bg); color: var(--txt); font-family: 'Segoe UI', Tahoma
 .dash-card .dc-t b { color: var(--txt); font-size: 14px; display: block; margin-bottom: 2px; }
 .preview-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
 .preview-bar > span { font-size: 14px; color: var(--gold); font-weight: 700; }
-.dev-toggle { display: flex; gap: 6px; }
-.dv { background: var(--bg2); color: var(--mut); border: 1px solid var(--line); border-radius: 8px; padding: 7px 11px; font-size: 12px; cursor: pointer; transition: all .15s; }
-.dv:hover { border-color: var(--gold); color: var(--txt); }
-.dv.active { background: var(--gold); color: #12161f; border-color: var(--gold); font-weight: 700; }
-#previewW { width: 120px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; color: var(--txt); padding: 7px 10px; font-size: 12px; outline: none; }
+.dev-toggle { display: flex; gap: 8px; flex-wrap: wrap; }
+.dv { display: flex; flex-direction: column; align-items: center; gap: 1px; min-width: 76px; background: linear-gradient(180deg, #161d30, #0e141f); border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px 7px; cursor: pointer; transition: transform .12s, border-color .15s, box-shadow .15s; }
+.dv i { font-style: normal; font-size: 17px; line-height: 1; }
+.dv b { font-size: 12px; font-weight: 600; color: var(--txt); }
+.dv small { font-size: 10px; color: var(--mut); font-family: Consolas, monospace; direction: ltr; }
+.dv:hover { border-color: var(--gold); transform: translateY(-2px); }
+.dv.active { background: linear-gradient(180deg, #e0b636, var(--gold2)); border-color: var(--gold); box-shadow: 0 4px 14px rgba(201,162,39,.35); }
+.dv.active b, .dv.active small { color: #12161f; }
+.custom-w { display: flex; align-items: center; gap: 6px; }
+.custom-w #previewW { width: 115px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; color: var(--txt); padding: 8px 10px; font-size: 12px; outline: none; text-align: center; direction: ltr; }
+.custom-w #previewW:focus { border-color: var(--gold); }
 .preview-frame { display: flex; justify-content: center; background: linear-gradient(45deg, #141926 25%, transparent 25%, transparent 75%, #141926 75%), linear-gradient(45deg, #141926 25%, #1a2030 25%, #1a2030 75%, #141926 75%); background-size: 22px 22px; background-position: 0 0, 11px 11px; border: 1px solid var(--line); border-radius: 12px; padding: 18px; min-height: 70vh; }
 .preview { width: 100%; height: 70vh; border: 1px solid var(--line); border-radius: 12px; background: #fff; transition: width .25s ease; }
 
