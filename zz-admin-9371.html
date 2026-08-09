@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم ضوه جروب</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- ===== LOGIN ===== -->
+  <div id="loginView" class="login-wrap">
+    <div class="login-box">
+      <div class="login-logo">ضوه جروب</div>
+      <div class="login-sub">لوحة تحكم الموقع</div>
+      <div id="loginMsg" class="login-msg"></div>
+      <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" dir="ltr">
+      <input type="password" id="loginPass" placeholder="كلمة المرور" dir="ltr">
+      <button class="btn-gold" onclick="doLogin()">دخول</button>
+      <div class="login-row">
+        <button class="link" onclick="showSignup()">إنشاء حساب جديد</button>
+      </div>
+      <div id="signupBox" class="signup-box hidden">
+        <input type="password" id="suPass" placeholder="كلمة المرور الجديدة" dir="ltr">
+        <input type="text" id="suInvite" placeholder="رمز الدعوة" dir="ltr">
+        <button class="btn-gold small" onclick="doSignup()">تسجيل الحساب</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== APP ===== -->
+  <div id="appView" class="app hidden">
+    <header class="app-header">
+      <div class="app-title">لوحة تحكم <b>ضوه جروب</b></div>
+      <div class="app-user">
+        <span id="appEmail"></span>
+        <button class="btn-ghost" onclick="doLogout()">خروج</button>
+      </div>
+    </header>
+
+    <nav class="tabs" id="tabs">
+      <button data-tab="properties" class="active">العقارات</button>
+      <button data-tab="content">الكلام والنصوص</button>
+      <button data-tab="categories">الكتيغوريز (المعرض)</button>
+      <button data-tab="packages">الباقات والأسعار</button>
+      <button data-tab="testimonials">آراء العملاء</button>
+    </nav>
+
+    <main class="main">
+      <!-- PROPERTIES -->
+      <section id="tab-properties" class="tab active">
+        <div class="toolbar">
+          <button class="btn-gold" onclick="openModal('properties')">+ إضافة عقار</button>
+          <button class="btn-ghost" onclick="importDefaults('properties')">استيراد العقارات الحالية</button>
+        </div>
+        <div class="table-wrap"><table id="tbl-properties"><thead><tr>
+          <th>العنوان</th><th>الموقع</th><th>السعر</th><th>النوع</th><th>ترتيب</th><th></th>
+        </tr></thead><tbody></tbody></table></div>
+      </section>
+
+      <!-- CONTENT -->
+      <section id="tab-content" class="tab">
+        <div class="toolbar">
+          <button class="btn-gold" onclick="importDefaults('content')">استيراد النصوص الافتراضية</button>
+          <button class="btn-ghost" onclick="saveAllContent()">حفظ كل النصوص</button>
+        </div>
+        <div class="note">عدّل أي نص (عربي / إنجليزي) واضغط "حفظ كل النصوص". المفاتيح اللي قدامك اسمها key وهي نفسها بتقفل الحقول في الموقع.</div>
+        <div id="contentForm" class="content-form"></div>
+      </section>
+
+      <!-- CATEGORIES -->
+      <section id="tab-categories" class="tab">
+        <div class="toolbar">
+          <button class="btn-gold" onclick="openModal('categories')">+ إضافة كتيغوري</button>
+          <button class="btn-ghost" onclick="importDefaults('categories')">استيراد الكتيغوريز الحالية</button>
+        </div>
+        <div class="table-wrap"><table id="tbl-categories"><thead><tr>
+          <th>المفتاح</th><th>الاسم عربي</th><th>الاسم إنجليزي</th><th>عدد الصور</th><th>ترتيب</th><th></th>
+        </tr></thead><tbody></tbody></table></div>
+      </section>
+
+      <!-- PACKAGES -->
+      <section id="tab-packages" class="tab">
+        <div class="toolbar">
+          <button class="btn-gold" onclick="openModal('packages')">+ إضافة باقة</button>
+          <button class="btn-ghost" onclick="importDefaults('packages')">استيراد الباقات الحالية</button>
+        </div>
+        <div class="table-wrap"><table id="tbl-packages"><thead><tr>
+          <th>الباقة</th><th>السعر</th><th>مميزة</th><th>ترتيب</th><th></th>
+        </tr></thead><tbody></tbody></table></div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section id="tab-testimonials" class="tab">
+        <div class="toolbar">
+          <button class="btn-gold" onclick="openModal('testimonials')">+ إضافة رأي</button>
+          <button class="btn-ghost" onclick="importDefaults('testimonials')">استيراد الآراء الحالية</button>
+        </div>
+        <div class="table-wrap"><table id="tbl-testimonials"><thead><tr>
+          <th>الاسم</th><th>الوظيفة</th><th>النجوم</th><th>ترتيب</th><th></th>
+        </tr></thead><tbody></tbody></table></div>
+      </section>
+    </main>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-box">
+        <div class="modal-head">
+          <span id="modalTitle">إضافة</span>
+          <button class="close" onclick="closeModal()">✕</button>
+        </div>
+        <div id="modalBody"></div>
+        <div class="modal-actions">
+          <button class="btn-gold" onclick="saveModal()">حفظ</button>
+          <button class="btn-ghost" onclick="closeModal()">إلغاء</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/data.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
