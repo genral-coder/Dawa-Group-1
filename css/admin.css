@@ -58,8 +58,14 @@ body { background: var(--bg); color: var(--txt); font-family: 'Segoe UI', Tahoma
 .dash-card .dc-t { font-size: 13px; color: var(--mut); line-height: 1.7; }
 .dash-card .dc-t b { color: var(--txt); font-size: 14px; display: block; margin-bottom: 2px; }
 .preview-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-.preview-bar span { font-size: 14px; color: var(--gold); font-weight: 700; }
-.preview { width: 100%; height: 70vh; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.preview-bar > span { font-size: 14px; color: var(--gold); font-weight: 700; }
+.dev-toggle { display: flex; gap: 6px; }
+.dv { background: var(--bg2); color: var(--mut); border: 1px solid var(--line); border-radius: 8px; padding: 7px 11px; font-size: 12px; cursor: pointer; transition: all .15s; }
+.dv:hover { border-color: var(--gold); color: var(--txt); }
+.dv.active { background: var(--gold); color: #12161f; border-color: var(--gold); font-weight: 700; }
+#previewW { width: 120px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; color: var(--txt); padding: 7px 10px; font-size: 12px; outline: none; }
+.preview-frame { display: flex; justify-content: center; background: linear-gradient(45deg, #141926 25%, transparent 25%, transparent 75%, #141926 75%), linear-gradient(45deg, #141926 25%, #1a2030 25%, #1a2030 75%, #141926 75%); background-size: 22px 22px; background-position: 0 0, 11px 11px; border: 1px solid var(--line); border-radius: 12px; padding: 18px; min-height: 70vh; }
+.preview { width: 100%; height: 70vh; border: 1px solid var(--line); border-radius: 12px; background: #fff; transition: width .25s ease; }
 
 /* ===== COMPANY FORM ===== */
 .company-form { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 760px; }
