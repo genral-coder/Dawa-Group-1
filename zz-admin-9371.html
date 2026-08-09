@@ -22,28 +22,84 @@
 
   <!-- ===== APP ===== -->
   <div id="appView" class="app hidden">
-    <header class="app-header">
-      <div class="app-title">لوحة تحكم <b>ضوه جروب</b></div>
-      <div class="app-user">
+    <aside class="side">
+      <div class="side-brand"><b>ضوه جروب</b><small>لوحة التحكم</small></div>
+      <button class="side-item active" data-tab="home">🏠 الرئيسية</button>
+      <button class="side-item" data-tab="content">📝 النصوص</button>
+      <button class="side-item" data-tab="company">📞 بيانات الشركة</button>
+      <button class="side-item" data-tab="banners">🖼️ البنرات</button>
+      <button class="side-item" data-tab="properties">🏠 العقارات</button>
+      <button class="side-item" data-tab="categories">🖼️ الأقسام</button>
+      <button class="side-item" data-tab="packages">💰 الباقات</button>
+      <button class="side-item" data-tab="testimonials">⭐ الآراء</button>
+      <div class="side-foot">
         <a class="btn-ghost" href="index.html" target="_blank">🌐 شوف الموقع</a>
-        <span id="appEmail"></span>
         <button class="btn-ghost" onclick="doLogout()">خروج</button>
       </div>
-    </header>
-
-    <nav class="tabs" id="tabs">
-      <button data-tab="properties" class="active">🏠 العقارات</button>
-      <button data-tab="content">📝 الكلام والنصوص</button>
-      <button data-tab="categories">🖼️ أقسام المعرض</button>
-      <button data-tab="packages">💰 الباقات والأسعار</button>
-      <button data-tab="testimonials">⭐ آراء العملاء</button>
-    </nav>
-
-    <div class="guide"><b>كيف تستخدم اللوحة؟</b> اضغط على أي تبويب فوق، ثم اضغط "إضافة" لعمل حاجة جديدة أو "تعديل" جنب أي سطر. أي تغيير تتسجل فورًا على الموقع.</div>
+    </aside>
 
     <main class="main">
+      <!-- HOME / DASHBOARD -->
+      <section id="tab-home" class="tab active">
+        <div class="dash-cards">
+          <div class="dash-card">
+            <div class="dc-ic">👀</div>
+            <div class="dc-t"><b>المعاينة</b><br><span>شوف شكل الموقع على طول تحت. أي تعديل بتسجله يظهر بعد تحديث المعاينة.</span></div>
+          </div>
+          <div class="dash-card">
+            <div class="dc-ic">⚡</div>
+            <div class="dc-t"><b>التغيير فوري</b><br><span>أي تعديل هنا بيظهر على الموقع مباشرة من غير ما ترفع أي ملف — لأن البيانات متخزنة في Supabase.</span></div>
+          </div>
+          <div class="dash-card">
+            <div class="dc-ic">🧩</div>
+            <div class="dc-t"><b>الأقسام</b><br><span>النصوص: أي كلام في الموقع. العقارات: الوحدات. الأقسام: صور المعرض. الباقات: الأسعار. الآراء: كلام العملاء.</span></div>
+          </div>
+        </div>
+        <div class="preview-bar">
+          <span>معاينة الموقع (الواجهة الرئيسية)</span>
+          <button class="btn-ghost" onclick="reloadPreview()">↻ تحديث المعاينة</button>
+          <a class="btn-gold small" href="index.html" target="_blank">فتح في تبويب جديد ↗</a>
+        </div>
+        <iframe id="previewFrame" class="preview" src="index.html"></iframe>
+      </section>
+
+      <!-- CONTENT -->
+      <section id="tab-content" class="tab">
+        <div class="toolbar">
+          <button class="btn-gold" onclick="importDefaults('content')">استيراد النصوص الافتراضية</button>
+          <button class="btn-ghost" onclick="saveAllContent()">💾 حفظ كل النصوص</button>
+        </div>
+        <div class="note">عدّل أي نص بالعربي والإنجليزي، ولو عايز خط مختلف لجملة معينة اختاره من "الخط". أول عنصر (site-font) بيغيّر خط الموقع كله مرة واحدة. بعد التعديل اضغط "حفظ كل النصوص".</div>
+        <div id="contentForm" class="content-form"></div>
+      </section>
+
+      <!-- COMPANY -->
+      <section id="tab-company" class="tab">
+        <div class="note">دي بيانات الشركة (تليفون، إيميل، واتساب، سوشيال) — بتتظهر في أول وأخر الموقع وفي صفحة التفاصيل. احفظ واضغط "تحديث المعاينة" تشوفها على طول.</div>
+        <div class="company-form" id="companyForm">
+          <div><label>رقم الهاتف</label><input type="text" id="co-phone" dir="ltr" placeholder="+20 111 781 6248"></div>
+          <div><label>الإيميل</label><input type="text" id="co-email" dir="ltr" placeholder="info@dawagroup.com"></div>
+          <div><label>رقم الواتساب (بدون + ولا مسافات)</label><input type="text" id="co-wa" dir="ltr" placeholder="201117816248"></div>
+          <div><label>رابط الفيسبوك</label><input type="text" id="co-fb" dir="ltr" placeholder="https://facebook.com/..."></div>
+          <div><label>رابط الانستغرام</label><input type="text" id="co-insta" dir="ltr" placeholder="https://instagram.com/..."></div>
+          <button class="btn-gold" onclick="saveCompany()">💾 حفظ بيانات الشركة</button>
+        </div>
+      </section>
+
+      <!-- BANNERS -->
+      <section id="tab-banners" class="tab">
+        <div class="toolbar">
+          <button class="btn-gold" onclick="openModal('banners')">+ إضافة بانر</button>
+          <button class="btn-ghost" onclick="importDefaults('banners')">إرجاع البنرين الافتراضيين</button>
+        </div>
+        <div class="note">البنرات هي الصور الكبيرة اللي بتتقلب في أول الموقع كل 8 ثواني. الصورة يُفضل تكون عريضة (نسبة 2.3 للعرض:الطول) عشان تظهر كاملة.</div>
+        <div class="table-wrap"><table id="tbl-banners"><thead><tr>
+          <th>الصورة</th><th>الرابط</th><th>ترتيب</th><th></th>
+        </tr></thead><tbody></tbody></table></div>
+      </section>
+
       <!-- PROPERTIES -->
-      <section id="tab-properties" class="tab active">
+      <section id="tab-properties" class="tab">
         <div class="toolbar">
           <button class="btn-gold" onclick="openModal('properties')">+ إضافة عقار</button>
           <button class="btn-ghost" onclick="importDefaults('properties')">استيراد العقارات الحالية</button>
@@ -53,21 +109,11 @@
         </tr></thead><tbody></tbody></table></div>
       </section>
 
-      <!-- CONTENT -->
-      <section id="tab-content" class="tab">
-        <div class="toolbar">
-          <button class="btn-gold" onclick="importDefaults('content')">استيراد النصوص الافتراضية</button>
-          <button class="btn-ghost" onclick="saveAllContent()">حفظ كل النصوص</button>
-        </div>
-        <div class="note">عدّل أي نص (عربي / إنجليزي) واضغط "حفظ كل النصوص". المفاتيح اللي قدامك اسمها key وهي نفسها بتقفل الحقول في الموقع.</div>
-        <div id="contentForm" class="content-form"></div>
-      </section>
-
       <!-- CATEGORIES -->
       <section id="tab-categories" class="tab">
         <div class="toolbar">
-          <button class="btn-gold" onclick="openModal('categories')">+ إضافة كتيغوري</button>
-          <button class="btn-ghost" onclick="importDefaults('categories')">استيراد الكتيغوريز الحالية</button>
+          <button class="btn-gold" onclick="openModal('categories')">+ إضافة قسم</button>
+          <button class="btn-ghost" onclick="importDefaults('categories')">استيراد الأقسام الحالية</button>
         </div>
         <div class="table-wrap"><table id="tbl-categories"><thead><tr>
           <th>القسم</th><th>عدد الصور</th><th>ترتيب</th><th></th>

@@ -56,8 +56,22 @@ const CONTENT_DEFAULTS = {
   "footer-loc": { ar: "القاهرة الجديدة، مصر", en: "New Cairo, Egypt" },
   "footer-copy": { ar: "جميع الحقوق محفوظة.", en: "All rights reserved." },
   "crumb-props": { ar: " / عقارات", en: " / Properties" },
-  "site-font": { ar: "default", en: "default" }
+  "site-font": { ar: "default", en: "default" },
+  "site-phone": { ar: "+20 111 781 6248", en: "+20 111 781 6248" },
+  "site-email": { ar: "info@dawagroup.com", en: "info@dawagroup.com" },
+  "site-whatsapp": { ar: "201117816248", en: "201117816248" },
+  "site-facebook": { ar: "", en: "" },
+  "site-instagram": { ar: "", en: "" }
 };
+
+/* مفاتيح بيانات الشركة (بتظهر كحقول مخصصة في تبويب "بيانات الشركة") */
+const COMPANY_KEYS = [
+  { k: "site-phone", l: "رقم الهاتف", ph: "+20 111 781 6248" },
+  { k: "site-email", l: "الإيميل", ph: "info@dawagroup.com" },
+  { k: "site-whatsapp", l: "رقم الواتساب (بدون + ولا مسافات)", ph: "201117816248" },
+  { k: "site-facebook", l: "رابط الفيسبوك", ph: "https://facebook.com/..." },
+  { k: "site-instagram", l: "رابط الانستغرام", ph: "https://instagram.com/..." }
+];
 
 /* الخطوط المتاحة لاختيارها من لوحة التحكم */
 const FONT_OPTIONS = [
@@ -123,12 +137,18 @@ const FIELDS = {
     { k: "quote_ar", l: "الرأي عربي", t: "area", full: true },
     { k: "quote_en", l: "الرأي إنجليزي", t: "area", full: true },
     { k: "sort", l: "الترتيب", t: "number" }
+  ],
+  banners: [
+    { k: "id", l: "المعرف id", t: "text" },
+    { k: "image", l: "رابط الصورة (يفضل نسبة 2.3)", t: "text", full: true },
+    { k: "link", l: "رابط يفتح عند الضغط (اختياري)", t: "text", full: true },
+    { k: "sort", l: "الترتيب", t: "number" }
   ]
 };
 
-const TABLE_NAMES = { properties: "properties", categories: "categories", packages: "packages", testimonials: "testimonials" };
-const PK = { properties: "id", categories: "id", packages: "id", testimonials: "id" };
-const CONFLICT = { properties: "id", categories: "id", packages: "id", testimonials: "id", content: "key" };
+const TABLE_NAMES = { properties: "properties", categories: "categories", packages: "packages", testimonials: "testimonials", banners: "banners" };
+const PK = { properties: "id", categories: "id", packages: "id", testimonials: "id", banners: "id" };
+const CONFLICT = { properties: "id", categories: "id", packages: "id", testimonials: "id", banners: "id", content: "key" };
 
 let sb = null;
 let SESSION = null;
@@ -163,9 +183,10 @@ function showApp(session) {
   SESSION = session;
   $id("loginView").classList.add("hidden");
   $id("appView").classList.remove("hidden");
-  $id("appEmail").textContent = session.user.email || "";
-  switchTab("properties");
-  loadTab(currentEntity);
+  const em = $id("appEmail");
+  if (em) em.textContent = session.user.email || "";
+  switchTab("home");
+  loadTab("home");
 }
 
 async function doLogin() {
@@ -184,19 +205,27 @@ async function doLogout() {
 }
 
 /* ===== TABS ===== */
-document.querySelectorAll("#tabs button").forEach((b) => {
+document.querySelectorAll(".side-item").forEach((b) => {
   b.addEventListener("click", () => { switchTab(b.dataset.tab); loadTab(b.dataset.tab); });
 });
 function switchTab(t) {
   currentEntity = t;
-  document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("active", b.dataset.tab === t));
+  document.querySelectorAll(".side-item").forEach((b) => b.classList.toggle("active", b.dataset.tab === t));
   document.querySelectorAll(".tab").forEach((s) => s.classList.toggle("active", s.id === "tab-" + t));
+}
+
+function reloadPreview() {
+  const f = $id("previewFrame");
+  if (f) f.src = "index.html?v=" + Date.now();
 }
 
 /* ===== LISTS ===== */
 async function loadTab(t) {
   if (t === "content") { await loadContentForm(); return; }
+  if (t === "company") { await loadCompanyForm(); return; }
+  if (t === "home") return;
   const tbl = $id("tbl-" + t);
+  if (!tbl) return;
   const tbody = tbl.querySelector("tbody");
   tbody.innerHTML = '<tr><td colspan="9" style="color:#8b93a7">... جارٍ التحميل</td></tr>';
   const { data, error } = await sb.from(TABLE_NAMES[t]).select("*").order("sort", { ascending: true });
@@ -212,6 +241,7 @@ function rowHtml(t, r) {
   if (t === "properties") cols = [r.title_ar || r.title_en, r.price_ar || r.price_en, r.sort];
   else if (t === "categories") cols = [r.name_ar || r.name_en, (r.images || []).length, r.sort];
   else if (t === "packages") cols = [(r.icon || "") + " " + (r.title_ar || r.title_en), r.price_ar || r.price_en, r.featured ? "✓" : ""];
+  else if (t === "banners") cols = ['<img src="' + esc(r.image) + '" style="width:90px;height:40px;object-fit:cover;border-radius:6px">', r.link || "", r.sort];
   else cols = [r.name_ar || r.name_en, "★".repeat(r.stars || 5)];
   return "<tr>" + cols.map((c) => "<td>" + (c ?? "") + "</td>").join("") +
     '<td><div class="row-actions">' +
@@ -256,6 +286,11 @@ async function importDefaults(t) {
       id: x.id, sort: i + 1, stars: x.stars, name_ar: x.name.ar, name_en: x.name.en,
       role_ar: x.role.ar, role_en: x.role.en, quote_ar: x.quote.ar, quote_en: x.quote.en
     }));
+  } else if (t === "banners") {
+    rows = [
+      { id: "bn-1", sort: 1, image: "assets/properties/real-1.jpg", link: "" },
+      { id: "bn-2", sort: 2, image: "assets/properties/real-2.jpg", link: "" }
+    ];
   } else if (t === "content") {
     rows = Object.keys(CONTENT_DEFAULTS).map((k) => ({ key: k, ar: CONTENT_DEFAULTS[k].ar, en: CONTENT_DEFAULTS[k].en }));
   }
@@ -279,19 +314,23 @@ async function loadContentForm() {
     item.className = "content-item";
     if (k === "site-font") {
       item.innerHTML =
-        '<div class="ci-key">site-font - اختيار خط الموقع</div>' +
+        '<div class="ci-key">site-font - اختيار خط الموقع كله</div>' +
         '<div class="ci-row"><div style="flex:1;min-width:220px"><label>الخط</label>' +
-        '<select data-cik="site-font" data-font="1">' +
+        '<select data-cik="site-font" data-fontkey="1">' +
         FONT_OPTIONS.map((f) => '<option value="' + f.v + '"' + ((cur.en ?? def.en) === f.v ? " selected" : "") + ">" + f.l + "</option>").join("") +
         "</select></div></div>";
       box.appendChild(item);
       return;
     }
+    const curFont = (cur.font || "default");
     item.innerHTML =
       '<div class="ci-key">' + k + "</div>" +
       '<div class="ci-row">' +
       '<div style="flex:1;min-width:220px"><label>عربي</label><textarea data-cik="' + k + '" data-lang="ar">' + (cur.ar ?? def.ar) + "</textarea></div>" +
       '<div style="flex:1;min-width:220px"><label>English</label><textarea data-cik="' + k + '" data-lang="en">' + (cur.en ?? def.en) + "</textarea></div>" +
+      '<div style="min-width:150px"><label>الخط (اختياري)</label><select data-cik="' + k + '" data-fontitem="1">' +
+      FONT_OPTIONS.map((f) => '<option value="' + f.v + '"' + (curFont === f.v ? " selected" : "") + ">" + f.l + "</option>").join("") +
+      "</select></div>" +
       "</div>";
     box.appendChild(item);
   });
@@ -303,17 +342,42 @@ async function saveAllContent() {
     const k = el.dataset.cik;
     let r = rows.find((x) => x.key === k);
     if (!r) { r = { key: k }; rows.push(r); }
-    if (el.dataset.lang) r[el.dataset.lang] = el.value;
-    else if (el.dataset.font) { r.ar = el.value; r.en = el.value; }
+    if (el.dataset.fontkey) { r.ar = el.value; r.en = el.value; }
+    else if (el.dataset.fontitem) { r.font = el.value === "default" ? "" : el.value; }
+    else if (el.dataset.lang) r[el.dataset.lang] = el.value;
   });
   const { error } = await sb.from("content").upsert(rows, { onConflict: "key" });
-  if (error) toast("فشل الحفظ: " + error.message, false); else toast("اتحفظ كل النصوص والخط", true);
+  if (error) toast("فشل الحفظ: " + error.message, false); else { toast("اتحفظ كل النصوص والخطوط", true); reloadPreview(); }
+}
+
+/* ===== COMPANY FORM ===== */
+async function loadCompanyForm() {
+  const keys = COMPANY_KEYS.map((x) => x.k);
+  const { data, error } = await sb.from("content").select("*").in("key", keys);
+  if (error) { toast("فشل تحميل بيانات الشركة: " + error.message, false); return; }
+  const rows = {};
+  (data || []).forEach((r) => { rows[r.key] = r; });
+  COMPANY_KEYS.forEach((c) => {
+    const el = $id("co-" + c.k.replace("site-", ""));
+    if (el) el.value = (rows[c.k] && rows[c.k].en != null ? rows[c.k].en : "") || (CONTENT_DEFAULTS[c.k].en || "");
+  });
+}
+
+async function saveCompany() {
+  const rows = COMPANY_KEYS.map((c) => {
+    const el = $id("co-" + c.k.replace("site-", ""));
+    const v = el ? el.value.trim() : "";
+    return { key: c.k, ar: v, en: v };
+  });
+  const { error } = await sb.from("content").upsert(rows, { onConflict: "key" });
+  if (error) toast("فشل الحفظ: " + error.message, false); else { toast("اتحفظت بيانات الشركة", true); reloadPreview(); }
 }
 
 /* ===== MODAL ===== */
 function openModal(t, id) {
   currentEditId = id || null;
-  $id("modalTitle").textContent = (currentEditId ? "تعديل" : "إضافة") + " - " + (t === "properties" ? "عقار" : t === "categories" ? "كتيغوري" : t === "packages" ? "باقة" : "رأي عميل");
+  const titles = { properties: "عقار", categories: "قسم", packages: "باقة", testimonials: "رأي عميل", banners: "بانر" };
+  $id("modalTitle").textContent = (currentEditId ? "تعديل" : "إضافة") + " - " + (titles[t] || t);
   const body = $id("modalBody");
   body.innerHTML = "";
   const fields = FIELDS[t];
@@ -373,7 +437,7 @@ async function saveModal() {
     else if (inp.dataset.type === "number") row[k] = inp.value === "" ? null : Number(inp.value);
     else row[k] = inp.value.trim();
   });
-  if (!row.id) row.id = (t === "properties" ? "p" : t === "categories" ? "cat" : t === "packages" ? "pack" : "t") + "-" + Date.now().toString(36);
+  if (!row.id) row.id = (t === "properties" ? "p" : t === "categories" ? "cat" : t === "packages" ? "pack" : t === "banners" ? "bn" : "t") + "-" + Date.now().toString(36);
   const { error } = await sb.from(TABLE_NAMES[t]).upsert(row, { onConflict: CONFLICT[t] });
   if (error) toast("فشل الحفظ: " + error.message, false); else { toast("اتحفظ", true); closeModal(); loadTab(t); }
 }
