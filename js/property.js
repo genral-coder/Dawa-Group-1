@@ -9,24 +9,23 @@ const PER_FONTS = {
 
 function applyCompanyData() {
   const c = window.SITE && window.SITE.content;
-  const phone = c && c["site-phone"] ? c["site-phone"].en : "";
-  const email = c && c["site-email"] ? c["site-email"].en : "";
-  if (phone) {
-    const tel = "tel:" + phone.replace(/[^\d+]/g, "");
-    document.querySelectorAll("[data-c-phone]").forEach((el) => {
-      el.textContent = phone;
-      const a = el.tagName === "A" ? el : el.closest("a");
-      if (a) a.href = tel;
+  const list = (k) => (c && c[k] && c[k].en ? c[k].en.split("\n").map((s) => s.trim()).filter(Boolean) : []);
+  const phones = list("site-phone");
+  const emails = list("site-email");
+  const renderList = (sel, items, hrefFn) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      if (items.length === 1) {
+        const v = items[0];
+        el.textContent = v;
+        const a = el.tagName === "A" ? el : el.closest("a");
+        if (a) a.href = hrefFn(v);
+      } else if (items.length > 1) {
+        el.innerHTML = items.map((v) => '<a href="' + hrefFn(v).replace(/"/g, "&quot;") + '" style="display:block;text-decoration:none;color:inherit">' + v.replace(/"/g, "&quot;") + "</a>").join("");
+      }
     });
-  }
-  if (email) {
-    const ma = "mailto:" + email;
-    document.querySelectorAll("[data-c-email]").forEach((el) => {
-      el.textContent = email;
-      const a = el.tagName === "A" ? el : el.closest("a");
-      if (a) a.href = ma;
-    });
-  }
+  };
+  renderList("[data-c-phone]", phones, (v) => "tel:" + v.replace(/[^\d+]/g, ""));
+  renderList("[data-c-email]", emails, (v) => "mailto:" + v);
 }
 
 function langText(obj) {
@@ -36,7 +35,8 @@ function langText(obj) {
 function waNumber() {
   const c = window.SITE && window.SITE.content;
   const v = c && c["site-whatsapp"] ? c["site-whatsapp"].en : "";
-  return v ? v.replace(/[^\d]/g, "") : "201117816248";
+  const first = v ? v.split("\n")[0].trim() : "";
+  return first ? first.replace(/[^\d]/g, "") : "201117816248";
 }
 
 function findProperty() {
