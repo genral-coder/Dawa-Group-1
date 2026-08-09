@@ -56,16 +56,21 @@
           </div>
         </div>
         <div class="preview-bar">
-          <span>معاينة الموقع</span>
-          <div class="dev-toggle">
-            <button class="dv active" onclick="setPreviewW(this,'100%')">🖥️ حاسوب</button>
-            <button class="dv" onclick="setPreviewW(this,'768')">💻 تابلت</button>
-            <button class="dv" onclick="setPreviewW(this,'390')">📱 تلفون</button>
+          <span>المعاينة</span>
+          <div class="dev-toggle" id="devToggle">
+            <button class="dv active" onclick="setPreviewW(this,'100%')"><i>🖥️</i><b>حاسوب</b><small>تلقائي</small></button>
+            <button class="dv" onclick="setPreviewW(this,'1366')"><i>🖥️</i><b>لابتوب</b><small>1366</small></button>
+            <button class="dv" onclick="setPreviewW(this,'1024')"><i>💻</i><b>تابلت</b><small>1024</small></button>
+            <button class="dv" onclick="setPreviewW(this,'768')"><i>💻</i><b>تابلت</b><small>768</small></button>
+            <button class="dv" onclick="setPreviewW(this,'414')"><i>📱</i><b>تلفون</b><small>414</small></button>
+            <button class="dv" onclick="setPreviewW(this,'360')"><i>📱</i><b>تلفون</b><small>360</small></button>
           </div>
-          <input type="number" id="previewW" placeholder="عرض مخصص px" value="">
-          <button class="btn-ghost" onclick="applyCustomW()">تطبيق</button>
+          <div class="custom-w">
+            <input type="number" id="previewW" placeholder="عرض مخصص px" value="">
+            <button class="btn-ghost" onclick="applyCustomW()">تطبيق</button>
+          </div>
           <button class="btn-ghost" onclick="reloadPreview()">↻ تحديث</button>
-          <a class="btn-gold small" href="index.html" target="_blank">فتح في تبويب جديد ↗</a>
+          <a class="btn-gold small" href="index.html" target="_blank">فتح ↗</a>
         </div>
         <div class="preview-frame">
           <iframe id="previewFrame" class="preview" src="index.html"></iframe>
