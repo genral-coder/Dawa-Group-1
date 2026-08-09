@@ -55,12 +55,17 @@
     if (!cfg.url || !cfg.anonKey) return null;
     const sb = window.supabase.createClient(cfg.url, cfg.anonKey);
 
-    const out = { useDB: false, properties: [], packages: [], testimonials: [], categories: [], gallery: {}, content: {} };
+    const out = { useDB: false, properties: [], packages: [], testimonials: [], categories: [], gallery: {}, content: {}, banners: [] };
 
     const props = await sb.from("properties").select("*").order("sort", { ascending: true });
     if (!props.error && props.data) {
       out.useDB = true;
       out.properties = props.data.map(rowToProperty);
+    }
+    const bann = await sb.from("banners").select("*").order("sort", { ascending: true });
+    if (!bann.error && bann.data) {
+      out.useDB = true;
+      out.banners = bann.data.map((b) => ({ id: b.id, image: b.image, link: b.link || "" }));
     }
     const packs = await sb.from("packages").select("*").order("sort", { ascending: true });
     if (!packs.error && packs.data) {
@@ -83,7 +88,7 @@
     const cts = await sb.from("content").select("*");
     if (!cts.error && cts.data) {
       out.useDB = true;
-      cts.data.forEach((c) => { out.content[c.key] = { ar: c.ar, en: c.en }; });
+      cts.data.forEach((c) => { out.content[c.key] = { ar: c.ar, en: c.en, font: c.font || "" }; });
     }
 
     if (!out.useDB) return null;
@@ -105,7 +110,8 @@
       testimonials: window.DAWA_DATA.testimonials,
       categories: [],
       gallery: window.DAWA_DATA.gallery,
-      content: {}
+      content: {},
+      banners: []
     };
     return cached;
   }

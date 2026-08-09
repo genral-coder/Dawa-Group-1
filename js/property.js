@@ -2,8 +2,41 @@
 let currentLang = localStorage.getItem("dawa-lang") || "en";
 let currentProp = null;
 
+const PER_FONTS = {
+  cairo: { n: "'Cairo', sans-serif" }, tajawal: { n: "'Tajawal', sans-serif" }, almarai: { n: "'Almarai', sans-serif" },
+  rubik: { n: "'Rubik', sans-serif" }, "el-messiri": { n: "'El Messiri', sans-serif" }, amiri: { n: "'Amiri', serif" }
+};
+
+function applyCompanyData() {
+  const c = window.SITE && window.SITE.content;
+  const phone = c && c["site-phone"] ? c["site-phone"].en : "";
+  const email = c && c["site-email"] ? c["site-email"].en : "";
+  if (phone) {
+    const tel = "tel:" + phone.replace(/[^\d+]/g, "");
+    document.querySelectorAll("[data-c-phone]").forEach((el) => {
+      el.textContent = phone;
+      const a = el.tagName === "A" ? el : el.closest("a");
+      if (a) a.href = tel;
+    });
+  }
+  if (email) {
+    const ma = "mailto:" + email;
+    document.querySelectorAll("[data-c-email]").forEach((el) => {
+      el.textContent = email;
+      const a = el.tagName === "A" ? el : el.closest("a");
+      if (a) a.href = ma;
+    });
+  }
+}
+
 function langText(obj) {
   return obj[currentLang];
+}
+
+function waNumber() {
+  const c = window.SITE && window.SITE.content;
+  const v = c && c["site-whatsapp"] ? c["site-whatsapp"].en : "";
+  return v ? v.replace(/[^\d]/g, "") : "201117816248";
 }
 
 function findProperty() {
@@ -27,6 +60,11 @@ function applyLang() {
     const s = key && window.SITE && window.SITE.content && window.SITE.content[key];
     const val = s ? (currentLang === "ar" ? s.ar : s.en) : (currentLang === "ar" ? ar : en);
     if (val !== null && val !== undefined) el.textContent = val;
+    if (s && s.font && s.font !== "default") {
+      el.style.fontFamily = (PER_FONTS[s.font] || {}).n || "";
+    } else if (key && !s) {
+      el.style.fontFamily = "";
+    }
   });
 
   const btn = document.getElementById("langToggle");
@@ -97,7 +135,7 @@ function renderDetails() {
         </div>
         <a class="btn-gold" href="index.html#contact">${L === "ar" ? "احجز معاينة" : "Book a Viewing"}</a>
         <a class="whatsapp" target="_blank"
-           href="https://wa.me/201117816248?text=${L === "ar" ? "أنا مهتم بالعقار: " + encodeURIComponent(p.title[L]) : "I'm interested in: " + encodeURIComponent(p.title[L])}">
+           href="https://wa.me/${waNumber()}?text=${L === "ar" ? "أنا مهتم بالعقار: " + encodeURIComponent(p.title[L]) : "I'm interested in: " + encodeURIComponent(p.title[L])}">
           WhatsApp
         </a>
       </div>
@@ -116,6 +154,7 @@ function renderDetails() {
 document.addEventListener("DOMContentLoaded", async () => {
   window.SITE = await window.SiteData.get();
   if (window.SiteFont) window.SiteFont.apply();
+  applyCompanyData();
   currentProp = findProperty();
   applyLang();
 

@@ -5,6 +5,27 @@ let currentLang = localStorage.getItem("dawa-lang") || "en";
 
 const escAttr = (s) => String(s || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
+/* خطوط قابلة للتطبيق على كل جملة لوحدها (من لوحة التحكم) */
+const PER_FONTS = {
+  cairo: { n: "'Cairo', sans-serif", u: "https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" },
+  tajawal: { n: "'Tajawal', sans-serif", u: "https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" },
+  almarai: { n: "'Almarai', sans-serif", u: "https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" },
+  rubik: { n: "'Rubik', sans-serif", u: "https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" },
+  "el-messiri": { n: "'El Messiri', sans-serif", u: "https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" },
+  amiri: { n: "'Amiri', serif", u: "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" }
+};
+function loadPerFont(k) {
+  const f = PER_FONTS[k];
+  if (!f || document.getElementById("pf-" + k)) return;
+  const l = document.createElement("link");
+  l.id = "pf-" + k;
+  l.rel = "stylesheet";
+  l.href = f.u;
+  document.head.appendChild(l);
+}
+
+const DEFAULT_BANNERS = ["assets/properties/real-1.jpg", "assets/properties/real-2.jpg"];
+
 function siteText(key, ar, en) {
   const s = window.SITE && window.SITE.content && window.SITE.content[key];
   if (s) return currentLang === "ar" ? s.ar : s.en;
@@ -22,8 +43,15 @@ function applyLanguage() {
     const key = el.getAttribute("data-key");
     const ar = el.getAttribute("data-ar");
     const en = el.getAttribute("data-en");
+    const s = window.SITE && window.SITE.content && window.SITE.content[key];
     const val = siteText(key, ar, en);
     if (val !== null && val !== undefined) el.textContent = val;
+    if (s && s.font && s.font !== "default") {
+      loadPerFont(s.font);
+      el.style.fontFamily = (PER_FONTS[s.font] || {}).n || "";
+    } else if (key && !s) {
+      el.style.fontFamily = "";
+    }
   });
   document.querySelectorAll("[data-ar-ph]").forEach((el) => {
     const val = currentLang === "ar" ? el.getAttribute("data-ar-ph") : el.getAttribute("data-en-ph");
@@ -44,10 +72,71 @@ function toggleLang() {
   applyLanguage();
 }
 
+/* ===== HERO BANNERS (dynamic from DB) ===== */
+function renderBanners() {
+  const wrap = document.querySelector(".hero-banner");
+  if (!wrap) return;
+  const S = window.SITE;
+  const fromDB = S && S.useDB;
+  if (!fromDB) return; /* بدون قاعدة بيانات: خلّي الصور الافتراضية في الـ HTML */
+  let items = (S.banners && S.banners.length)
+    ? S.banners.map((b) => ({ image: b.image, link: b.link || "" })).filter((b) => b.image)
+    : DEFAULT_BANNERS.map((src) => ({ image: src, link: "" }));
+  if (!items.length) return;
+  const slide = (b, extraStyle) =>
+    '<div class="b-slide" style="' + (b.link ? "cursor:pointer;" : "") + extraStyle + '"' +
+    (b.link ? ' onclick="window.open(\'' + escAttr(b.link) + '\',\'_blank\')"' : "") +
+    '><img src="' + escAttr(b.image) + '" alt="Dawa Group"></div>';
+  if (items.length === 1) {
+    wrap.innerHTML = slide(items[0], "animation:none;opacity:1");
+    return;
+  }
+  const total = items.length * 8;
+  wrap.innerHTML = items.map((b, i) => slide(b, "animation-duration:" + total + "s;animation-delay:" + (i * 8) + "s")).join("");
+}
+
+/* ===== COMPANY DATA (phone / email / whatsapp / social) ===== */
+function companyVal(key) {
+  const c = window.SITE && window.SITE.content;
+  return (c && c[key] && c[key].en) ? c[key].en.trim() : "";
+}
+function applyCompanyData() {
+  const phone = companyVal("site-phone");
+  const email = companyVal("site-email");
+  const wa = companyVal("site-whatsapp");
+  const fb = companyVal("site-facebook");
+  const insta = companyVal("site-instagram");
+  if (phone) {
+    const tel = "tel:" + phone.replace(/[^\d+]/g, "");
+    document.querySelectorAll("[data-c-phone]").forEach((el) => {
+      el.textContent = phone;
+      const a = el.tagName === "A" ? el : el.closest("a");
+      if (a) a.href = tel;
+    });
+  }
+  if (email) {
+    const ma = "mailto:" + email;
+    document.querySelectorAll("[data-c-email]").forEach((el) => {
+      el.textContent = email;
+      const a = el.tagName === "A" ? el : el.closest("a");
+      if (a) a.href = ma;
+    });
+  }
+  if (wa) {
+    const href = "https://wa.me/" + wa;
+    document.querySelectorAll("[data-c-wa]").forEach((el) => { if (el.tagName === "A") el.href = href; });
+  }
+  const setHref = (sel, v) => { if (!v || v === "#") return; const el = document.querySelector(sel); if (el) el.href = v; };
+  setHref("[data-c-fb]", fb);
+  setHref("[data-c-insta]", insta);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   window.SITE = await window.SiteData.get();
   applyLanguage();
   if (window.SiteFont) window.SiteFont.apply();
+  renderBanners();
+  applyCompanyData();
 
   /* burger */
   const burger = document.getElementById("burger");
@@ -434,6 +523,10 @@ function closeImageOverlay() {
 }
 
 /* ===== CONTACT ===== */
+function waNumber() {
+  const v = companyVal("site-whatsapp");
+  return v ? v.replace(/[^\d]/g, "") : "201117816248";
+}
 function initContactForm() {
   const form = document.getElementById("contactForm");
   if (!form) return;
@@ -447,7 +540,7 @@ function initContactForm() {
       : `New inquiry from ${name}%0APhone: ${phone}%0ADetails: ${details}`;
     const btn = form.querySelector("button");
     btn.textContent = currentLang === "ar" ? "جاري الإرسال..." : "Sending...";
-    window.open(`https://wa.me/201117816248?text=${msg}`, "_blank");
+    window.open(`https://wa.me/${waNumber()}?text=${msg}`, "_blank");
     setTimeout(() => {
       btn.textContent = currentLang === "ar" ? "تم إرسال الرسالة ✓" : "Message sent ✓";
       form.reset();
