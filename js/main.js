@@ -3,6 +3,14 @@
 /* ===== LANGUAGE (AR text only / EN fixed layout) ===== */
 let currentLang = localStorage.getItem("dawa-lang") || "en";
 
+const escAttr = (s) => String(s || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+
+function siteText(key, ar, en) {
+  const s = window.SITE && window.SITE.content && window.SITE.content[key];
+  if (s) return currentLang === "ar" ? s.ar : s.en;
+  return currentLang === "ar" ? ar : en;
+}
+
 function applyLanguage() {
   const html = document.documentElement;
   /* layout direction stays LTR always - only the text changes */
@@ -11,8 +19,11 @@ function applyLanguage() {
   localStorage.setItem("dawa-lang", currentLang);
 
   document.querySelectorAll("[data-ar]").forEach((el) => {
-    const val = currentLang === "ar" ? el.getAttribute("data-ar") : el.getAttribute("data-en");
-    if (val !== null) el.textContent = val;
+    const key = el.getAttribute("data-key");
+    const ar = el.getAttribute("data-ar");
+    const en = el.getAttribute("data-en");
+    const val = siteText(key, ar, en);
+    if (val !== null && val !== undefined) el.textContent = val;
   });
   document.querySelectorAll("[data-ar-ph]").forEach((el) => {
     const val = currentLang === "ar" ? el.getAttribute("data-ar-ph") : el.getAttribute("data-en-ph");
@@ -33,8 +44,10 @@ function toggleLang() {
   applyLanguage();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  window.SITE = await window.SiteData.get();
   applyLanguage();
+  if (window.SiteFont) window.SiteFont.apply();
 
   /* burger */
   const burger = document.getElementById("burger");
@@ -151,7 +164,8 @@ function renderProperties() {
   const grid = document.getElementById("propertyGrid");
   if (!grid) return;
   const lang = currentLang;
-  grid.innerHTML = DAWA_DATA.properties.slice(0, 6).map((p) => `
+  const props = (window.SITE && window.SITE.properties.length) ? window.SITE.properties : window.DAWA_DATA.properties;
+  grid.innerHTML = props.slice(0, 6).map((p) => `
     <div class="property-card hidden-zoom">
       <div class="img-wrap">
         <img src="${p.image}" alt="${p.title[lang]}">
@@ -177,7 +191,8 @@ function renderPackages() {
   const grid = document.getElementById("packageGrid");
   if (!grid) return;
   const lang = currentLang;
-  grid.innerHTML = DAWA_DATA.packages.map((p) => `
+  const packs = (window.SITE && window.SITE.packages.length) ? window.SITE.packages : window.DAWA_DATA.packages;
+  grid.innerHTML = packs.map((p) => `
     <div class="package hidden-zoom ${p.featured ? "featured-pack" : ""}">
       ${p.featured ? `<span class="pop">${lang === "ar" ? "الأكثر طلباً" : "Most Popular"}</span>` : ""}
       <div class="p-icon">${p.icon}</div>
@@ -195,7 +210,8 @@ function renderTestimonials() {
   const grid = document.getElementById("testiGrid");
   if (!grid) return;
   const lang = currentLang;
-  grid.innerHTML = DAWA_DATA.testimonials.map((t) => `
+  const tests = (window.SITE && window.SITE.testimonials.length) ? window.SITE.testimonials : window.DAWA_DATA.testimonials;
+  grid.innerHTML = tests.map((t) => `
     <div class="testi hidden">
       <div class="stars">${"★".repeat(t.stars)}</div>
       <div class="quote">"${t.quote[lang]}"</div>
@@ -213,10 +229,27 @@ function renderTestimonials() {
 
 /* ===== GALLERY SLIDER ===== */
 let currentGalleryKey = "finishing";
-let currentIndex = 1;
+let currentIndex = 0;
 let autoSlideInterval;
 
+function galleryMap() {
+  const db = window.SITE && window.SITE.gallery;
+  if (db && Object.keys(db).length) return db;
+  return window.DAWA_DATA.gallery;
+}
+
 function renderGallery() {
+  const listEl = document.querySelector(".gallery-list");
+  const map = galleryMap();
+  const keys = Object.keys(map);
+  if (keys.length && !map[currentGalleryKey]) currentGalleryKey = keys[0];
+  if (listEl) {
+    const lang = currentLang;
+    listEl.innerHTML = keys.map((k) => {
+      const g = map[k];
+      return `<button data-gallery="${escAttr(k)}" data-ar="${escAttr(g.ar)}" data-en="${escAttr(g.en)}">${g[lang]}</button>`;
+    }).join("");
+  }
   const buttons = document.querySelectorAll(".gallery-list button");
   buttons.forEach((b) => {
     const key = b.getAttribute("data-gallery");
@@ -231,7 +264,8 @@ function switchGallery(key) {
   const wrapper = document.getElementById("sliderWrapper");
   if (!wrapper) return;
   const lang = currentLang;
-  const gallery = DAWA_DATA.gallery[key];
+  const gallery = galleryMap()[key];
+  if (!gallery) return;
 
   document.querySelectorAll(".gallery-list button").forEach((b) => {
     if (b.getAttribute("data-gallery") === key) b.id = "active";
@@ -241,7 +275,8 @@ function switchGallery(key) {
   const cats = document.querySelectorAll(".gallery-list button");
   cats.forEach((b) => {
     const k = b.getAttribute("data-gallery");
-    const lbl = DAWA_DATA.gallery[k];
+    const lbl = galleryMap()[k];
+    if (!lbl) return;
     b.setAttribute("data-ar", lbl.ar);
     b.setAttribute("data-en", lbl.en);
     b.textContent = lbl[lang];
