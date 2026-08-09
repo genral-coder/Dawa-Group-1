@@ -227,8 +227,21 @@ function setPreviewW(btn, w) {
   if (f) f.style.width = w === "100%" ? "100%" : w + "px";
 }
 function applyCustomW() {
-  const inp = $id("previewW");
-  const v = parseInt((inp && inp.value) || "", 10);
+  const sel = $id("previewW");
+  const custom = $id("previewWCustom");
+  if (!sel) return;
+  if (sel.value === "custom") {
+    if (custom) { custom.style.display = "block"; custom.focus(); }
+    return;
+  }
+  if (custom) custom.style.display = "none";
+  if (!sel.value) return;
+  document.querySelectorAll(".dv").forEach((b) => b.classList.remove("active"));
+  const f = $id("previewFrame");
+  if (f) f.style.width = sel.value + "px";
+}
+function applyCustomNum() {
+  const v = parseInt(($id("previewWCustom") && $id("previewWCustom").value) || "", 10);
   if (!v || v < 280 || v > 3000) return;
   document.querySelectorAll(".dv").forEach((b) => b.classList.remove("active"));
   const f = $id("previewFrame");
@@ -271,7 +284,7 @@ function esc(s) { return String(s).replace(/'/g, "\\'").replace(/"/g, "&quot;");
 async function delRow(t, id) {
   if (!confirm("متأكد تحذف دي؟")) return;
   const { error } = await sb.from(TABLE_NAMES[t]).delete().eq(PK[t], id);
-  if (error) toast("فشل الحذف: " + error.message, false); else { toast("اتحذفت", true); loadTab(t); }
+  if (error) toast("فشل الحذف: " + error.message, false); else { toast("اتحذفت", true); loadTab(t); reloadPreview(); }
 }
 
 /* ===== IMPORT DEFAULTS ===== */
@@ -312,7 +325,7 @@ async function importDefaults(t) {
   }
   if (!rows.length) return;
   const { error } = await sb.from(TABLE_NAMES[t] || "content").upsert(rows, { onConflict: CONFLICT[t] });
-  if (error) toast("فشل الاستيراد: " + error.message, false); else { toast("اتستورد " + rows.length + " صف", true); loadTab(t); }
+  if (error) toast("فشل الاستيراد: " + error.message, false); else { toast("اتستورد " + rows.length + " صف", true); loadTab(t); reloadPreview(); }
 }
 
 /* ===== CONTENT FORM ===== */
@@ -455,7 +468,7 @@ async function saveModal() {
   });
   if (!row.id) row.id = (t === "properties" ? "p" : t === "categories" ? "cat" : t === "packages" ? "pack" : t === "banners" ? "bn" : "t") + "-" + Date.now().toString(36);
   const { error } = await sb.from(TABLE_NAMES[t]).upsert(row, { onConflict: CONFLICT[t] });
-  if (error) toast("فشل الحفظ: " + error.message, false); else { toast("اتحفظ", true); closeModal(); loadTab(t); }
+  if (error) toast("فشل الحفظ: " + error.message, false); else { toast("اتحفظ", true); closeModal(); loadTab(t); reloadPreview(); }
 }
 
 /* stash للصف اللي بنعدله (بيتعبي قبل فتح المودال) */
