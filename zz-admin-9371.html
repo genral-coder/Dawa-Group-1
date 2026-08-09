@@ -32,6 +32,7 @@
       <button class="side-item" data-tab="categories">🖼️ الأقسام</button>
       <button class="side-item" data-tab="packages">💰 الباقات</button>
       <button class="side-item" data-tab="testimonials">⭐ الآراء</button>
+      <button class="side-item" data-tab="guide">❓ طريقة الاستخدام</button>
       <div class="side-foot">
         <a class="btn-ghost" href="index.html" target="_blank">🌐 شوف الموقع</a>
         <button class="btn-ghost" onclick="doLogout()">خروج</button>
@@ -39,37 +40,37 @@
     </aside>
 
     <main class="main">
-      <!-- HOME / DASHBOARD -->
+      <!-- HOME -->
       <section id="tab-home" class="tab active">
-        <div class="dash-cards">
-          <div class="dash-card">
-            <div class="dc-ic">👀</div>
-            <div class="dc-t"><b>المعاينة</b><br><span>شوف شكل الموقع على طول تحت. أي تعديل بتسجله يظهر بعد تحديث المعاينة.</span></div>
-          </div>
-          <div class="dash-card">
-            <div class="dc-ic">⚡</div>
-            <div class="dc-t"><b>التغيير فوري</b><br><span>أي تعديل هنا بيظهر على الموقع مباشرة من غير ما ترفع أي ملف — لأن البيانات متخزنة في Supabase.</span></div>
-          </div>
-          <div class="dash-card">
-            <div class="dc-ic">🧩</div>
-            <div class="dc-t"><b>الأقسام</b><br><span>النصوص: أي كلام في الموقع. العقارات: الوحدات. الأقسام: صور المعرض. الباقات: الأسعار. الآراء: كلام العملاء.</span></div>
-          </div>
-        </div>
         <div class="preview-bar">
           <span>المعاينة</span>
           <div class="dev-toggle" id="devToggle">
-            <button class="dv active" onclick="setPreviewW(this,'100%')"><i>🖥️</i><b>حاسوب</b><small>تلقائي</small></button>
-            <button class="dv" onclick="setPreviewW(this,'1366')"><i>🖥️</i><b>لابتوب</b><small>1366</small></button>
-            <button class="dv" onclick="setPreviewW(this,'1024')"><i>💻</i><b>تابلت</b><small>1024</small></button>
-            <button class="dv" onclick="setPreviewW(this,'768')"><i>💻</i><b>تابلت</b><small>768</small></button>
-            <button class="dv" onclick="setPreviewW(this,'414')"><i>📱</i><b>تلفون</b><small>414</small></button>
-            <button class="dv" onclick="setPreviewW(this,'360')"><i>📱</i><b>تلفون</b><small>360</small></button>
+            <button class="dv active" onclick="setPreviewW(this,'100%')"><i>🖥️</i><b>كمبيوتر</b></button>
+            <button class="dv" onclick="setPreviewW(this,'768')"><i>💻</i><b>تابلت</b></button>
+            <button class="dv" onclick="setPreviewW(this,'390')"><i>📱</i><b>تلفون</b></button>
           </div>
           <div class="custom-w">
-            <input type="number" id="previewW" placeholder="عرض مخصص px" value="">
-            <button class="btn-ghost" onclick="applyCustomW()">تطبيق</button>
+            <select id="previewW" onchange="applyCustomW()">
+              <option value="">عرض مخصص...</option>
+              <option value="1920">1920</option>
+              <option value="1536">1536</option>
+              <option value="1440">1440</option>
+              <option value="1366">1366</option>
+              <option value="1280">1280</option>
+              <option value="1024">1024</option>
+              <option value="834">834</option>
+              <option value="768">768</option>
+              <option value="667">667</option>
+              <option value="640">640</option>
+              <option value="414">414</option>
+              <option value="390">390</option>
+              <option value="375">375</option>
+              <option value="360">360</option>
+              <option value="320">320</option>
+              <option value="custom">📐 مخصص...</option>
+            </select>
+            <input type="number" id="previewWCustom" placeholder="عرض px" value="" style="display:none" onchange="applyCustomNum()">
           </div>
-          <button class="btn-ghost" onclick="reloadPreview()">↻ تحديث</button>
           <a class="btn-gold small" href="index.html" target="_blank">فتح ↗</a>
         </div>
         <div class="preview-frame">
@@ -89,11 +90,11 @@
 
       <!-- COMPANY -->
       <section id="tab-company" class="tab">
-        <div class="note">دي بيانات الشركة (تليفون، إيميل، واتساب، سوشيال) — بتتظهر في أول وأخر الموقع وفي صفحة التفاصيل. احفظ واضغط "تحديث المعاينة" تشوفها على طول.</div>
+        <div class="note">بيانات الشركة (تليفون، إيميل، واتساب، سوشيال) — بتتظهر في أول وأخر الموقع وصفحة التفاصيل. في حقول الأرقام والإيميلات: كل رقم/إيميل في سطر لوحده عشان تقدر تحط كذا واحد.</div>
         <div class="company-form" id="companyForm">
-          <div><label>رقم الهاتف</label><input type="text" id="co-phone" dir="ltr" placeholder="+20 111 781 6248"></div>
-          <div><label>الإيميل</label><input type="text" id="co-email" dir="ltr" placeholder="info@dawagroup.com"></div>
-          <div><label>رقم الواتساب (بدون + ولا مسافات)</label><input type="text" id="co-wa" dir="ltr" placeholder="201117816248"></div>
+          <div><label>أرقام الهاتف (كل رقم في سطر)</label><textarea id="co-phone" dir="ltr" placeholder="+20 111 781 6248"></textarea></div>
+          <div><label>الإيميلات (كل إيميل في سطر)</label><textarea id="co-email" dir="ltr" placeholder="info@dawagroup.com"></textarea></div>
+          <div><label>أرقام الواتساب (بدون + ولا مسافات، كل رقم في سطر)</label><textarea id="co-wa" dir="ltr" placeholder="201117816248"></textarea></div>
           <div><label>رابط الفيسبوك</label><input type="text" id="co-fb" dir="ltr" placeholder="https://facebook.com/..."></div>
           <div><label>رابط الانستغرام</label><input type="text" id="co-insta" dir="ltr" placeholder="https://instagram.com/..."></div>
           <button class="btn-gold" onclick="saveCompany()">💾 حفظ بيانات الشركة</button>
@@ -154,6 +155,22 @@
         <div class="table-wrap"><table id="tbl-testimonials"><thead><tr>
           <th>الاسم</th><th>النجوم</th><th></th>
         </tr></thead><tbody></tbody></table></div>
+      </section>
+
+      <!-- GUIDE -->
+      <section id="tab-guide" class="tab">
+        <div class="guide-grid">
+          <div class="guide-card"><b>🏠 الرئيسية</b><p>معاينة حية لموقعك. اختار جهاز (كمبيوتر / تابلت / تلفون) أو مقاس مخصص من القائمة، وأي تعديل تسجله في أي قسم يتطبق على المعاينة فوراً من غير تحديث.</p></div>
+          <div class="guide-card"><b>📝 النصوص</b><p>كل كلام الموقع هنا. عدّل العربي والإنجليزي، واختار خط مختلف لأي جملة لوحدها. أول عنصر (site-font) بيغيّر خط الموقع كله مرة واحدة.</p></div>
+          <div class="guide-card"><b>📞 بيانات الشركة</b><p>الهاتف والإيميل والواتساب: تقدر تحط كذا رقم أو إيميل — كل واحد في سطر لوحده. روابط السوشيال سطر واحد. بيظهر الكل في أول وأخر الموقع وصفحة التفاصيل.</p></div>
+          <div class="guide-card"><b>🖼️ البنرات</b><p>الصور الكبيرة اللي بتتقلب في أول الموقع كل 8 ثواني. ضيف صورة عريضة (نسبة 2.3 للعرض:الطول) وإحتمال رابط يفتح عند الضغط.</p></div>
+          <div class="guide-card"><b>🏠 العقارات</b><p>الوحدات المعروضة. كل عقار له صورة، معرض صور، سعر، مساحة، غرف، حمامات، ووصف عربي وإنجليزي. أول مرة اضغط "استيراد" تجيب العقارات الحالية.</p></div>
+          <div class="guide-card"><b>🖼️ الأقسام</b><p>أقسام المعرض — كل قسم مجموعة صور. أول مرة اضغط "استيراد" تجيب الأقسام الحالية.</p></div>
+          <div class="guide-card"><b>💰 الباقات</b><p>عروض الأسعار والتشطيبات. كل باقة ليها سعر وعناصر، وفيه "باقة مميزة" بتظهر بشكل مميز في الموقع.</p></div>
+          <div class="guide-card"><b>⭐ الآراء</b><p>كلام عملائك في الموقع — اسم، وظيفة، عدد نجوم، ورأيهم بالعربي والإنجليزي.</p></div>
+          <div class="guide-card"><b>💾 الحفظ</b><p>أي زرار "حفظ" بتضغطه بيتطبق على الموقع والمعاينة مباشرة — مفيش حاجة ترفعها ولا تحدثها بنفسك.</p></div>
+          <div class="guide-card"><b>🌐 شوف الموقع</b><p>لو عايز تفتح الموقع زي الزائر، استخدم زرار "شوف الموقع" في الشريط الجانبي، أو "فتح" جنب المعاينة.</p></div>
+        </div>
       </section>
     </main>
 
