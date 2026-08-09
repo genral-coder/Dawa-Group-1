@@ -219,6 +219,22 @@ function reloadPreview() {
   if (f) f.src = "index.html?v=" + Date.now();
 }
 
+/* ===== PREVIEW DEVICE SWITCH ===== */
+function setPreviewW(btn, w) {
+  document.querySelectorAll(".dv").forEach((b) => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  const f = $id("previewFrame");
+  if (f) f.style.width = w === "100%" ? "100%" : w + "px";
+}
+function applyCustomW() {
+  const inp = $id("previewW");
+  const v = parseInt((inp && inp.value) || "", 10);
+  if (!v || v < 280 || v > 3000) return;
+  document.querySelectorAll(".dv").forEach((b) => b.classList.remove("active"));
+  const f = $id("previewFrame");
+  if (f) f.style.width = v + "px";
+}
+
 /* ===== LISTS ===== */
 async function loadTab(t) {
   if (t === "content") { await loadContentForm(); return; }
