@@ -1,8 +1,5 @@
 /* DAWA Group - Admin panel (لوحة التحكم)
-   الأمان الحقيقي = Supabase Auth + RLS. رمز الدعوة ده بس عشان يمنع أي حد يفتح حساب من الصفحة.
-   IMPORTANT: غيّر رمز الدعوة ده ولو تقدر قفل إنشاء الحسابات من Supabase Dashboard
-   بعد ما تعمل حساب الأدمن (Authentication > Users > Add user). */
-const INVITE_CODE = "dawa-2024";
+   الأمان الحقيقي = Supabase Auth + RLS (التعديل مسموح فقط لحسابك). */
 
 /* النصوص الافتراضية للموقع (نفس اللي في index.html). بقت هنا عشان "استيراد النصوص الافتراضية" */
 const CONTENT_DEFAULTS = {
@@ -179,19 +176,6 @@ async function doLogin() {
   if (error) { $id("loginMsg").textContent = "خطأ: " + error.message; return; }
   $id("loginMsg").textContent = "";
   showApp(data.session);
-}
-
-function showSignup() { $id("signupBox").classList.toggle("hidden"); }
-async function doSignup() {
-  const email = $id("loginEmail").value.trim();
-  const pass = $id("suPass").value;
-  const invite = $id("suInvite").value.trim();
-  if (!sb) return;
-  if (invite !== INVITE_CODE) { $id("loginMsg").textContent = "رمز الدعوة غلط."; return; }
-  const { data, error } = await sb.auth.signUp({ email, password: pass });
-  if (error) { $id("loginMsg").textContent = "خطأ: " + error.message; return; }
-  if (data.session) { showApp(data.session); }
-  else { $id("loginMsg").textContent = "تم إرسال تأكيد على الإيميل. راجع بريدك الأول."; }
 }
 
 async function doLogout() {
