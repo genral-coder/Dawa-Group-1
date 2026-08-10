@@ -25,16 +25,13 @@
     <aside class="side">
       <div class="side-brand"><img src="assets/who-are-we.png" alt="Dawa Group"><b>ضوه جروب</b><small>لوحة التحكم</small></div>
       <button class="side-item active" data-tab="home">🏠 الرئيسية</button>
-      <button class="side-item" data-tab="messages">💬 الرسائل</button>
-      <button class="side-item" data-tab="reviews">⭐ آراء الجمهور</button>
-      <button class="side-item" data-tab="content">📝 النصوص</button>
-      <button class="side-item" data-tab="company">📞 بيانات الشركة</button>
-      <button class="side-item" data-tab="banners">🖼️ البنرات</button>
       <button class="side-item" data-tab="properties">🏠 العقارات</button>
-      <button class="side-item" data-tab="categories">🖼️ الأقسام</button>
+      <button class="side-item" data-tab="categories">🖼️ المعرض</button>
       <button class="side-item" data-tab="packages">💰 الباقات</button>
       <button class="side-item" data-tab="testimonials">⭐ الآراء</button>
-      <button class="side-item" data-tab="guide">❓ طريقة الاستخدام</button>
+      <button class="side-item" data-tab="messages">💬 الرسائل</button>
+      <button class="side-item" data-tab="banners">🖼️ البنرات</button>
+      <button class="side-item" data-tab="content">📝 نصوص الموقع</button>
       <div class="side-foot">
         <a class="btn-ghost" href="index.html" target="_blank">🌐 شوف الموقع</a>
         <button class="btn-ghost" onclick="doLogout()">خروج</button>
@@ -86,24 +83,8 @@
           <button class="btn-gold" onclick="importDefaults('content')">استيراد النصوص الافتراضية</button>
           <button class="btn-ghost" onclick="saveAllContent()">💾 حفظ كل النصوص</button>
         </div>
-        <div class="note">عدّل أي نص بالعربي والإنجليزي، ولو عايز خط مختلف لجملة معينة اختاره من "الخط". أول عنصر (site-font) بيغيّر خط الموقع كله مرة واحدة. بعد التعديل اضغط "حفظ كل النصوص".</div>
+        <div class="note">كل كلام الموقع هنا (العناوين، الأزرار، بيانات التواصل...). عدّل العربي والإنجليزي وضغط "حفظ كل النصوص". أول عنصر (site-font) بيغيّر خط الموقع كله.</div>
         <div id="contentForm" class="content-form"></div>
-      </section>
-
-      <!-- COMPANY -->
-      <section id="tab-company" class="tab">
-        <div class="note">بيانات الشركة (تليفون، إيميل، واتساب، سوشيال) — بتتظهر في أول وأخر الموقع وصفحة التفاصيل. في حقول الأرقام والإيميلات: كل رقم/إيميل في سطر لوحده عشان تقدر تحط كذا واحد. زرار "＋ إضافة" يضيف قيمة جديدة لأي حقل.</div>
-        <div class="toolbar">
-          <button class="btn-gold" onclick="openCompanyAdd()">＋ إضافة قيمة جديدة</button>
-          <button class="btn-ghost" onclick="saveCompany()">💾 حفظ بيانات الشركة</button>
-        </div>
-        <div class="company-form" id="companyForm">
-          <div><label>أرقام الهاتف (كل رقم في سطر)</label><textarea id="co-phone" dir="ltr" placeholder="+20 111 781 6248"></textarea></div>
-          <div><label>الإيميلات (كل إيميل في سطر)</label><textarea id="co-email" dir="ltr" placeholder="info@dawagroup.com"></textarea></div>
-          <div><label>أرقام الواتساب (بدون + ولا مسافات، كل رقم في سطر)</label><textarea id="co-wa" dir="ltr" placeholder="201117816248"></textarea></div>
-          <div><label>رابط الفيسبوك</label><input type="text" id="co-fb" dir="ltr" placeholder="https://facebook.com/..."></div>
-          <div><label>رابط الانستغرام</label><input type="text" id="co-insta" dir="ltr" placeholder="https://instagram.com/..."></div>
-        </div>
       </section>
 
       <!-- BANNERS -->
@@ -112,14 +93,15 @@
           <button class="btn-gold" onclick="openModal('banners')">+ إضافة بانر</button>
           <button class="btn-ghost" onclick="importDefaults('banners')">إرجاع البنرين الافتراضيين</button>
         </div>
-        <div class="note">البنرات هي الصور الكبيرة اللي بتتقلب في أول الموقع كل 8 ثواني. ارفع صورة عريضة (نسبة 2.3 للعرض:الطول) ولو حطيت رابط هيفتح عند الضغط على البانر.</div>
+        <div class="note">البنرات هي الصور الكبيرة اللي بتتقلب في أول الموقع كل 8 ثواني. ارفع صورة عريضة من جهازك (نسبة 2.3 عرض:طول)، ولو حطيت رابط هيفتح عند الضغط عليها.</div>
         <div id="cards-banners" class="cards-grid"></div>
       </section>
 
       <!-- PROPERTIES -->
       <section id="tab-properties" class="tab">
+        <div class="note">اعرض شقتك/فيلا: اكتب اسم العقار + السعر + الصور فقط والمطلوب. الباقي اختياري. أول مرة اضغط "استيراد العقارات الحالية" تجيب اللي موجودين.</div>
         <div class="toolbar">
-          <button class="btn-gold" onclick="openModal('properties')">+ إضافة عقار</button>
+          <button class="btn-gold" onclick="openModal('properties')">＋ إضافة عقار</button>
           <button class="btn-ghost" onclick="importDefaults('properties')">استيراد العقارات الحالية</button>
         </div>
         <div id="cards-properties" class="cards-grid"></div>
@@ -128,34 +110,33 @@
       <!-- CATEGORIES -->
       <section id="tab-categories" class="tab">
         <div class="toolbar">
-          <button class="btn-gold" onclick="openModal('categories')">+ إضافة قسم</button>
+          <button class="btn-gold" onclick="openModal('categories')">＋ إضافة قسم</button>
           <button class="btn-ghost" onclick="importDefaults('categories')">استيراد الأقسام الحالية</button>
         </div>
-        <div class="note">اسحب أي قسم (من الشريط العلوي بتاعه) لأعلى أو لتحت عشان ترتبه — الترتيب بيتحفظ تلقائيًا.</div>
+        <div class="note">أقسام معرض الصور (واجهات / ديكورات / تشطيبات / مشاريعنا). ارفع صور كل قسم، واسحب أي قسم من الشريط العلوي بتاعه لأعلى أو لتحت لترتيبه — الترتيب بيتحفظ تلقائيًا.</div>
         <div id="cards-categories" class="cards-grid sortable"></div>
       </section>
 
       <!-- PACKAGES -->
       <section id="tab-packages" class="tab">
         <div class="toolbar">
-          <button class="btn-gold" onclick="openModal('packages')">+ إضافة باقة</button>
+          <button class="btn-gold" onclick="openModal('packages')">＋ إضافة باقة</button>
           <button class="btn-ghost" onclick="importDefaults('packages')">استيراد الباقات الحالية</button>
         </div>
+        <div class="note">باقات التشطيب (اقتصادي / سوبر لوكس / مفتاح). اكتب اسم الباقة والسعر، وكل عنصر في سطر لوحده. اختَر "باقة مميزة" لو عايزها تظهر بشكل بارز.</div>
         <div id="cards-packages" class="cards-grid"></div>
       </section>
 
-      <!-- TESTIMONIALS -->
+      <!-- TESTIMONIALS + VISITOR REVIEWS -->
       <section id="tab-testimonials" class="tab">
+        <div class="note">الآراء اللي بتظهر على الموقع في "كلمات عملائنا". اكتب بالعربي — والإنجليزي بيتسجل تلقائيًا من العربي ولو عايز كلام مختلف بدّله من "English".</div>
         <div class="toolbar">
-          <button class="btn-gold" onclick="openModal('testimonials')">+ إضافة رأي</button>
+          <button class="btn-gold" onclick="openModal('testimonials')">＋ إضافة رأي</button>
           <button class="btn-ghost" onclick="importDefaults('testimonials')">استيراد الآراء الحالية</button>
         </div>
         <div id="cards-testimonials" class="cards-grid"></div>
-      </section>
 
-      <!-- REVIEWS (visitor submissions) -->
-      <section id="tab-reviews" class="tab">
-        <div class="note">الآراء اللي بيكتبها زوار الموقع من فورم "شاركنا رأيك فينا". "نشر" بيظهر الرأي في الموقع فورًا، و"حذف" بيشيله.</div>
+        <div class="sub-head">💬 آراء الزوار (اللي بيتكتبوا من الموقع) — اضغط "نشر" عشان يظهروا</div>
         <div id="reviewsList" class="msg-list"></div>
       </section>
 
@@ -163,24 +144,6 @@
       <section id="tab-messages" class="tab">
         <div class="note">الرسايل من فورم "تواصل معنا" في الموقع. زرار "رد" بيفتح واتساب لرقم اللي بعت الرسالة برسالة جاهزة (أو إيميل لو مفيش رقم). "تم" بيعلّم الرسالة كإنتهت.</div>
         <div id="messagesList" class="msg-list"></div>
-      </section>
-
-      <!-- GUIDE -->
-      <section id="tab-guide" class="tab">
-        <div class="guide-list">
-          <div class="guide-sec"><b>🏠 الرئيسية</b><p>معاينة حية لموقعك. اختار جهاز (كمبيوتر / تابلت / تلفون) أو مقاس مخصص من القائمة، وأي تعديل تسجله في أي قسم يتطبق على المعاينة فورًا من غير تحديث.</p></div>
-          <div class="guide-sec"><b>📝 النصوص</b><p>كل كلام الموقع هنا، مقسّم حسب كل قسم. عدّل العربي والإنجليزي، واختار خط مختلف لأي جملة لوحدها. أول عنصر (site-font) بيغيّر خط الموقع كله مرة واحدة. كل عنصر ليه زرار حفظ خاص بيه.</p></div>
-          <div class="guide-sec"><b>📞 بيانات الشركة</b><p>الهاتف والإيميل والواتساب: تقدر تحط كذا رقم أو إيميل — كل واحد في سطر لوحده. استخدم "＋ إضافة قيمة جديدة" لتضيف أي قيمة لأي حقل. بيظهر الكل في أول وأخر الموقع وصفحة التفاصيل.</p></div>
-          <div class="guide-sec"><b>🖼️ البنرات</b><p>الصور الكبيرة في أول الموقع كل 8 ثواني. ارفع صورة من جهازك مباشرة — من غير روابط. لو حطيت رابط يفتح عند الضغط.</p></div>
-          <div class="guide-sec"><b>🏠 العقارات</b><p>الوحدات المعروضة كمروت. كل عقار: ارفع الصور من جهازك، واضبط السعر والمساحة والغرف والوصف. أول مرة اضغط "استيراد" تجيب العقارات الحالية.</p></div>
-          <div class="guide-sec"><b>🖼️ الأقسام</b><p>أقسام المعرض. ارفع صور كل قسم من جهازك، واسحب القسم لأعلى/لتحت لترتيبه — الترتيب بيتحفظ لوحده.</p></div>
-          <div class="guide-sec"><b>💰 الباقات</b><p>عروض الأسعار كمروت. كل باقة ليها سعر وعناصر، وفيه "باقة مميزة" بتظهر بشكل مميز في الموقع.</p></div>
-          <div class="guide-sec"><b>⭐ الآراء</b><p>الآراء اللي بتحطها انت بنفسك + اللي بتوافق عليها من "آراء الجمهور". الكل بيتعرض كمروت زي الموقع.</p></div>
-          <div class="guide-sec"><b>⭐ آراء الجمهور</b><p>اللي بيكتبوا رأيهم من الموقع بيوصلوا هنا. "نشر" يظهر الرأي في الموقع فورًا.</p></div>
-          <div class="guide-sec"><b>💬 الرسائل</b><p>رسايل "تواصل معنا" بتوصلك هنا. رد عبر الواتساب أو الإيميل، وعلّم "تم" لما تخلص.</p></div>
-          <div class="guide-sec"><b>💾 الحفظ</b><p>أي "حفظ" بتضغطه بيتطبق على الموقع والمعاينة مباشرة — مفيش حاجة ترفعها ولا تحدثها بنفسك.</p></div>
-          <div class="guide-sec"><b>🌐 شوف الموقع</b><p>لو عايز تفتح الموقع زي الزائر، استخدم زرار "شوف الموقع" في الشريط الجانبي، أو "فتح" جنب المعاينة.</p></div>
-        </div>
       </section>
     </main>
 
