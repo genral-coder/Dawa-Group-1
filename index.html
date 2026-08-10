@@ -239,6 +239,21 @@
   <section class="testimonials container">
     <div class="section-title hidden"><span data-key="testi-title" data-ar="كلمات عملائنا" data-en="Words from Our Clients">Words from Our Clients</span></div>
     <div id="testiGrid" class="testi-grid"></div>
+    <div class="review-form hidden">
+      <div class="review-form-title" data-key="testi-write" data-ar="شاركنا رأيك فينا" data-en="Share your review with us">Share your review with us</div>
+      <form id="reviewForm">
+        <input type="text" id="rvName" data-en-ph="Your Full Name" data-ar-ph="اسمك بالكامل" placeholder="Your Name" required>
+        <input type="text" id="rvRole" data-en-ph="Your Role / Job" data-ar-ph="وظيفتك" placeholder="Role">
+        <div class="rv-stars">
+          <span data-key="testi-rating" data-ar="تقييمك:" data-en="Your rating:">Your rating:</span>
+          <div id="rvStars" class="testi-star-select">
+            <span data-s="1">★</span><span data-s="2">★</span><span data-s="3">★</span><span data-s="4">★</span><span data-s="5">★</span>
+          </div>
+        </div>
+        <textarea id="rvQuote" data-en-ph="Write your review..." data-ar-ph="اكتب رأيك..." placeholder="Your review" required></textarea>
+        <button type="submit" data-key="testi-send" data-ar="إرسال رأيك" data-en="Send Review">Send Review</button>
+      </form>
+    </div>
   </section>
 
   <!-- GALLERY SLIDER -->
@@ -278,7 +293,10 @@
     <form id="contactForm" class="hidden">
       <input type="text" id="cName" data-en-ph="Full Name" data-ar-ph="الاسم بالكامل" placeholder="Full Name" required>
       <input type="tel" id="cPhone" data-en-ph="Phone Number" data-ar-ph="رقم الهاتف" placeholder="Phone" required>
-      <textarea id="cDetails" data-en-ph="Tell us about your request (property type, location, area...)" data-ar-ph="اكتب تفاصيل طلبك (نوع العقار، المكان، المساحة...)" placeholder="Details" required></textarea>
+      <div class="c-forms">
+        <input type="email" id="cEmail" data-en-ph="Email (optional)" data-ar-ph="الإيميل (اختياري)" placeholder="Email">
+        <textarea id="cDetails" data-en-ph="Tell us about your request (property type, location, area...)" data-ar-ph="اكتب تفاصيل طلبك (نوع العقار، المكان، المساحة...)" placeholder="Details" required></textarea>
+      </div>
       <button type="submit" data-key="contact-send" data-ar="إرسال الطلب" data-en="Send Request">Send Request</button>
     </form>
     <div class="contact-info-row hidden">
