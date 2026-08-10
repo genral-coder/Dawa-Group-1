@@ -141,8 +141,17 @@ function applyCompanyData() {
     }
   }
   const setHref = (sel, v) => { if (!v || v === "#") return; const el = document.querySelector(sel); if (el) el.href = v; };
+  const blockEmpty = (sel) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      el.addEventListener("click", (e) => {
+        if (!el.getAttribute("href") || el.getAttribute("href") === "#") e.preventDefault();
+      });
+    });
+  };
   setHref("[data-c-fb]", fb);
   setHref("[data-c-tiktok]", tiktok);
+  blockEmpty("[data-c-fb]");
+  blockEmpty("[data-c-tiktok]");
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
