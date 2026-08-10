@@ -52,7 +52,7 @@ body { background: var(--bg); color: var(--txt); font-family: 'Segoe UI', Tahoma
 .guide b { color: var(--gold); }
 .tab { display: none; }
 .tab.active { display: block; }
-#tab-home { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+#tab-home.active { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
 
 /* ===== DASHBOARD ===== */
 .dash-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 18px; }
@@ -171,7 +171,7 @@ td .row-actions { display: flex; gap: 6px; justify-content: flex-start; }
   .side-item { padding: 9px 11px; font-size: 13px; }
   .side-foot { margin: 0; flex-direction: row; border: none; padding: 0; }
   .main { height: auto; overflow: visible; }
-  #tab-home { flex: none; }
+  #tab-home.active { flex: none; }
   .preview-frame { flex: none; min-height: 70vh; }
   .preview { height: 70vh; }
 }
