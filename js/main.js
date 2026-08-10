@@ -154,12 +154,34 @@ function applyCompanyData() {
   blockEmpty("[data-c-tiktok]");
 }
 
+function openFbChooser(e) {
+  if (e) e.preventDefault();
+  const box = document.getElementById("fbChooser");
+  if (box) box.style.display = "flex";
+}
+
+function closeFbChooser(e) {
+  if (e && e.target && e.target.id !== "fbChooser" && !e.target.closest(".fb-chooser-box")) return;
+  const box = document.getElementById("fbChooser");
+  if (box) box.style.display = "none";
+}
+
+function initFbChooser() {
+  const box = document.getElementById("fbChooser");
+  if (box) {
+    box.addEventListener("click", (e) => {
+      if (e.target === box) box.style.display = "none";
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   window.SITE = await window.SiteData.get();
   applyLanguage();
   if (window.SiteFont) window.SiteFont.apply();
   renderBanners();
   applyCompanyData();
+  initFbChooser();
 
   /* burger */
   const burger = document.getElementById("burger");
