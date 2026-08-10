@@ -8,14 +8,14 @@ window.DAWA_DATA = {
       badge: { ar: "للبيع", en: "For Sale" },
       type: "sale",
       price: { ar: "4,800,000 ج.م", en: "EGP 4,800,000" },
-      title: { ar: "شقة فاخرة - التجمع الخامس", en: "Luxury Apartment - New Cairo" },
-      location: { ar: "التجمع الخامس، القاهرة الجديدة", en: "New Cairo, Cairo" },
+      title: { ar: "شقة فاخرة - أبراج الكريم", en: "Luxury Apartment - Al-Kareem Towers" },
+      location: { ar: "أبراج الكريم - طابا، القاهرة", en: "Al-Kareem Towers - Taba, Cairo" },
       area: { ar: "180 م²", en: "180 m²" },
       beds: "3",
       baths: "3",
       desc: {
-        ar: "شقة سوبر لوكس بموقع مميز في قلب التجمع الخامس، تصميم عصري بأعلى خامات التشطيب، إطلالة بانورامية مفتوحة، وجراج خاص. تبعد دقائق عن الجامعة الأمريكية والقاهرة الجديدة.",
-        en: "A super-luxury apartment in the heart of New Cairo with a modern design and premium finishing materials, panoramic open view, and private parking. Minutes away from AUC and New Cairo."
+        ar: "شقة سوبر لوكس بموقع مميز في أبراج الكريم بطابا، تصميم عصري بأعلى خامات التشطيب، إطلالة بانورامية مفتوحة، وجراج خاص. تبعد دقائق عن وسط القاهرة.",
+        en: "A super-luxury apartment in a prime location at Al-Kareem Towers, Taba, with a modern design and premium finishing materials, panoramic open view, and private parking. Minutes away from central Cairo."
       },
       details: {
         ar: "تتميز الشقة بمساحات واسعة وتوزيع مثالي للغرف مع غرفة معيشة كبيرة، مطبخ مجهز بالكامل، تكييف مركزي، أسانسير خاص، وحارس أمن على مدار الساعة. المول التجاري على بعد خطوات.",
@@ -252,10 +252,6 @@ window.DAWA_DATA = {
     exteriors: {
       ar: "واجهات", en: "Exteriors",
       images: ["assets/gallery/g1.svg", "assets/properties/p1.svg", "assets/properties/p4.svg", "assets/properties/p8.svg", "assets/properties/p5.svg"]
-    },
-    interiors: {
-      ar: "ديكورات داخلية", en: "Interiors",
-      images: ["assets/gallery/g2.svg", "assets/gallery/g3.svg", "assets/gallery/g4.svg", "assets/gallery/g7.svg", "assets/gallery/g5.svg"]
     },
     finishing: {
       ar: "تشطيبات", en: "Finishing",

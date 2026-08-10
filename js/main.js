@@ -109,7 +109,7 @@ function applyCompanyData() {
   const emails = companyList("site-email");
   const waList = companyList("site-whatsapp");
   const fb = companyVal("site-facebook");
-  const insta = companyVal("site-instagram");
+  const tiktok = companyVal("site-tiktok");
   const renderList = (sel, items, hrefFn) => {
     document.querySelectorAll(sel).forEach((el) => {
       if (items.length === 1) {
@@ -142,7 +142,7 @@ function applyCompanyData() {
   }
   const setHref = (sel, v) => { if (!v || v === "#") return; const el = document.querySelector(sel); if (el) el.href = v; };
   setHref("[data-c-fb]", fb);
-  setHref("[data-c-insta]", insta);
+  setHref("[data-c-tiktok]", tiktok);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -345,7 +345,8 @@ function galleryMap() {
 function renderGallery() {
   const listEl = document.querySelector(".gallery-list");
   const map = galleryMap();
-  const keys = Object.keys(map);
+  const hiddenKeys = ["interiors"];
+  const keys = Object.keys(map).filter((k) => hiddenKeys.indexOf(k) === -1);
   if (keys.length && !map[currentGalleryKey]) currentGalleryKey = keys[0];
   if (listEl) {
     const lang = currentLang;
@@ -359,6 +360,7 @@ function renderGallery() {
     const key = b.getAttribute("data-gallery");
     if (key === currentGalleryKey) b.id = "active";
     else b.removeAttribute("id");
+    b.addEventListener("click", () => switchGallery(key));
   });
   switchGallery(currentGalleryKey);
 }

@@ -59,18 +59,18 @@ const CONTENT_DEFAULTS = {
   "site-font": { ar: "default", en: "default" },
   "site-phone": { ar: "+20 111 781 6248", en: "+20 111 781 6248" },
   "site-email": { ar: "info@dawagroup.com", en: "info@dawagroup.com" },
-  "site-whatsapp": { ar: "201117816248", en: "201117816248" },
+  "site-whatsapp": { ar: "201067666612", en: "201067666612" },
   "site-facebook": { ar: "", en: "" },
-  "site-instagram": { ar: "", en: "" }
+  "site-tiktok": { ar: "", en: "" }
 };
 
 /* مفاتيح بيانات الشركة (بتظهر كحقول مخصصة في تبويب "بيانات الشركة") */
 const COMPANY_KEYS = [
   { k: "site-phone", l: "رقم الهاتف", ph: "+20 111 781 6248" },
   { k: "site-email", l: "الإيميل", ph: "info@dawagroup.com" },
-  { k: "site-whatsapp", l: "رقم الواتساب (بدون + ولا مسافات)", ph: "201117816248" },
+  { k: "site-whatsapp", l: "رقم الواتساب (بدون + ولا مسافات)", ph: "201067666612" },
   { k: "site-facebook", l: "رابط الفيسبوك", ph: "https://facebook.com/..." },
-  { k: "site-instagram", l: "رابط الانستغرام", ph: "https://instagram.com/..." }
+  { k: "site-tiktok", l: "رابط التيك توك", ph: "https://tiktok.com/@..." }
 ];
 
 /* الخطوط المتاحة لاختيارها من لوحة التحكم */
@@ -393,7 +393,7 @@ const CONTENT_GROUPS = [
   { g: "الآراء والمعرض", ks: ["testi-title", "gallery-title"] },
   { g: "التواصل", ks: ["contact-title", "contact-sub", "contact-send", "contact-loc"] },
   { g: "الفوتر (آخر الموقع)", ks: ["footer-about", "footer-links-title", "footer-contact-title", "footer-loc", "footer-copy"] },
-  { g: "بيانات التواصل (تليفون / إيميل / واتساب / سوشيال) — كل رقم أو إيميل في سطر", ks: ["site-phone", "site-email", "site-whatsapp", "site-facebook", "site-instagram"] },
+  { g: "بيانات التواصل (تليفون / إيميل / واتساب / سوشيال) — كل رقم أو إيميل في سطر", ks: ["site-phone", "site-email", "site-whatsapp", "site-facebook", "site-tiktok"] },
   { g: "الخطوط", ks: ["site-font"] }
 ];
 function contentItemHtml(k, cur, def) {
@@ -815,7 +815,7 @@ function openCompanyAdd() {
     '<option value="site-email">إيميل</option>' +
     '<option value="site-whatsapp">رقم واتساب</option>' +
     '<option value="site-facebook">رابط فيسبوك</option>' +
-    '<option value="site-instagram">رابط انستغرام</option>' +
+    '<option value="site-tiktok">رابط تيك توك</option>' +
     "</select></div>" +
     '<div class="full"><label>القيمة</label><input id="coAddVal" dir="ltr" placeholder="..." style="direction:ltr"></div>';
   $id("modal").classList.remove("hidden");
