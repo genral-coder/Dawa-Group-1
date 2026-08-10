@@ -189,6 +189,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initCarousel("workTrack", "workPrev", "workNext");
   initCarousel("propertyGrid", "propsPrev", "propsNext");
   initContactForm();
+  initReviewForm();
   renderProperties();
   renderPackages();
   renderTestimonials();
@@ -542,6 +543,12 @@ function waNumber() {
   const first = v ? v.split("\n")[0].trim() : "";
   return first ? first.replace(/[^\d]/g, "") : "201117816248";
 }
+function postToTable(table, payload) {
+  const cfg = window.SUPABASE || {};
+  if (!cfg.url || !cfg.anonKey || !window.supabase) return Promise.reject("no-supabase");
+  const client = window.supabase.createClient(cfg.url, cfg.anonKey);
+  return client.from(table).insert(payload);
+}
 function initContactForm() {
   const form = document.getElementById("contactForm");
   if (!form) return;
@@ -549,7 +556,9 @@ function initContactForm() {
     e.preventDefault();
     const name = document.getElementById("cName").value;
     const phone = document.getElementById("cPhone").value;
+    const email = document.getElementById("cEmail").value;
     const details = document.getElementById("cDetails").value;
+    postToTable("messages", { name, phone: phone || "", email: email || "", details, status: "new" }).catch(() => {});
     const msg = currentLang === "ar"
       ? `استفسار جديد من ${name}%0Aرقم الهاتف: ${phone}%0Aالتفاصيل: ${details}`
       : `New inquiry from ${name}%0APhone: ${phone}%0ADetails: ${details}`;
@@ -561,5 +570,37 @@ function initContactForm() {
       form.reset();
       setTimeout(() => { btn.textContent = currentLang === "ar" ? "إرسال" : "Send"; }, 3000);
     }, 800);
+  });
+}
+
+/* ===== VISITOR REVIEW FORM ===== */
+function initReviewForm() {
+  const form = document.getElementById("reviewForm");
+  if (!form) return;
+  let stars = 5;
+  const starsBox = document.getElementById("rvStars");
+  if (starsBox) {
+    starsBox.querySelectorAll("[data-s]").forEach((el) => {
+      el.addEventListener("click", () => {
+        stars = parseInt(el.dataset.s, 10);
+        starsBox.querySelectorAll("[data-s]").forEach((s) => {
+          const on = parseInt(s.dataset.s, 10) <= stars;
+          s.classList.toggle("sel", on);
+        });
+      });
+    });
+  }
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("rvName").value;
+    const role = document.getElementById("rvRole").value;
+    const quote = document.getElementById("rvQuote").value;
+    const btn = form.querySelector("button");
+    btn.textContent = currentLang === "ar" ? "جاري الإرسال..." : "Sending...";
+    postToTable("reviews", { name, role: role || "", stars, quote, status: "pending" })
+      .then(() => { btn.textContent = currentLang === "ar" ? "تم إرسال رأيك ✓" : "Review sent ✓"; })
+      .catch(() => { btn.textContent = currentLang === "ar" ? "حدث خطأ، حاول تاني" : "Error, try again"; });
+    form.reset();
+    setTimeout(() => { btn.textContent = currentLang === "ar" ? "إرسال" : "Send"; }, 3000);
   });
 }
