@@ -1180,6 +1180,59 @@ nav.scrolled {
   gap: 2rem;
 }
 
+/* ===== REVIEW SUBMIT FORM ===== */
+.review-form {
+  margin-top: 3rem;
+  background: var(--panel);
+  border: 1px solid #ffffff10;
+  border-radius: 18px;
+  padding: 2rem;
+}
+.review-form-title {
+  color: var(--gold);
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+}
+#reviewForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+#reviewForm #rvQuote { grid-column: 1 / -1; }
+#reviewForm button { grid-column: 1 / -1; }
+#reviewForm input, #reviewForm textarea {
+  width: 100%;
+  background: #0d1424;
+  border: 1px solid #ffffff20;
+  border-radius: 12px;
+  color: #fff;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+}
+#reviewForm input:focus, #reviewForm textarea:focus { border-color: var(--gold); }
+#reviewForm button {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-deep));
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.rv-stars { display: flex; align-items: center; gap: 0.8rem; color: #d5d5d5; }
+.testi-star-select { display: flex; gap: 0.15rem; direction: ltr; }
+.testi-star-select span {
+  font-size: 1.5rem;
+  color: #3a4256;
+  cursor: pointer;
+  transition: color .15s;
+}
+.testi-star-select span.sel { color: var(--gold); }
+.c-forms { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
+
 .testi {
   background: var(--panel);
   border: 1px solid #ffffff10;
@@ -2244,4 +2297,7 @@ footer {
   .slider-item { flex: 0 0 90%; }
   .props-track .property-card { width: 86vw; }
   .work-slider .w-item { width: min(20rem, 62vw); }
+  #reviewForm { grid-template-columns: 1fr; }
+  #reviewForm #rvQuote { grid-column: auto; }
+  #reviewForm button { grid-column: auto; }
 }
