@@ -84,65 +84,44 @@ const FONT_OPTIONS = [
   { v: "amiri", l: "أميري - Amiri" }
 ];
 
+/* الحقول المبسطة: بتكتب معلومة واحدة مرة واحدة (بالعربي)،
+   والإنجليزي بيتسجل تلقائيًا من العربي (إلا لو كتبت فرق).
+   cols = نفس الحقل بلغتين (عربي + إنجليزي)   |   col = حقل واحد مشترك */
 const FIELDS = {
   properties: [
-    { k: "id", l: "المعرف id", t: "text", full: false },
-    { k: "image", l: "الصورة الأساسية (ارفعها من جهازك)", t: "text", full: true, up: true },
-    { k: "gallery", l: "صور المعرض (ارفعها أو كل صورة في سطر)", t: "arr", full: true, ups: "properties" },
-    { k: "badge_ar", l: "الشارة عربي", t: "text" },
-    { k: "badge_en", l: "الشارة إنجليزي", t: "text" },
-    { k: "type", l: "النوع", t: "select", opts: ["sale", "rent", "other"] },
-    { k: "price_ar", l: "السعر عربي", t: "text" },
-    { k: "price_en", l: "السعر إنجليزي", t: "text" },
-    { k: "title_ar", l: "العنوان عربي", t: "text" },
-    { k: "title_en", l: "العنوان إنجليزي", t: "text" },
-    { k: "location_ar", l: "الموقع عربي", t: "text" },
-    { k: "location_en", l: "الموقع إنجليزي", t: "text" },
-    { k: "area_ar", l: "المساحة عربي", t: "text" },
-    { k: "area_en", l: "المساحة إنجليزي", t: "text" },
-    { k: "beds", l: "الغرف", t: "number" },
-    { k: "baths", l: "الحمامات", t: "number" },
-    { k: "desc_ar", l: "الوصف عربي", t: "area", full: true },
-    { k: "desc_en", l: "الوصف إنجليزي", t: "area", full: true },
-    { k: "details_ar", l: "التفاصيل عربي", t: "area", full: true },
-    { k: "details_en", l: "التفاصيل إنجليزي", t: "area", full: true },
-    { k: "sort", l: "الترتيب", t: "number" }
+    { k: "title", l: "اسم العقار", cols: ["title_ar", "title_en"] },
+    { k: "price", l: "السعر", cols: ["price_ar", "price_en"] },
+    { k: "type", l: "النوع", col: "type", select: [["sale", "بيع"], ["rent", "إيجار"], ["other", "غير ذلك"]] },
+    { k: "badge", l: "الشارة على الصورة (مثال: للبيع)", cols: ["badge_ar", "badge_en"] },
+    { k: "location", l: "الموقع", cols: ["location_ar", "location_en"] },
+    { k: "area", l: "المساحة (مثال: 180 م²)", cols: ["area_ar", "area_en"] },
+    { k: "beds", l: "عدد الغرف", col: "beds", num: true },
+    { k: "baths", l: "عدد الحمامات", col: "baths", num: true },
+    { k: "image", l: "الصورة الرئيسية (ارفعها من جهازك)", col: "image", up: true },
+    { k: "gallery", l: "صور إضافية للمعرض (ارفعها أو كل صورة في سطر)", col: "gallery", arr: true, ups: "properties", full: true },
+    { k: "desc", l: "وصف قصير", cols: ["desc_ar", "desc_en"], area: true, full: true },
+    { k: "details", l: "التفاصيل الكاملة (اختياري)", cols: ["details_ar", "details_en"], area: true, full: true }
   ],
   categories: [
-    { k: "id", l: "المفتاح id", t: "text" },
-    { k: "name_ar", l: "الاسم عربي", t: "text" },
-    { k: "name_en", l: "الاسم إنجليزي", t: "text" },
-    { k: "images", l: "صور القسم (ارفعها أو كل صورة في سطر)", t: "arr", full: true, ups: "categories" },
-    { k: "sort", l: "الترتيب", t: "number" }
+    { k: "name", l: "اسم القسم", cols: ["name_ar", "name_en"] },
+    { k: "images", l: "صور القسم (ارفعها أو كل صورة في سطر)", col: "images", arr: true, ups: "categories", full: true }
   ],
   packages: [
-    { k: "id", l: "المعرف id", t: "text" },
-    { k: "icon", l: "الأيقونة", t: "text" },
-    { k: "title_ar", l: "الاسم عربي", t: "text" },
-    { k: "title_en", l: "الاسم إنجليزي", t: "text" },
-    { k: "price_ar", l: "السعر عربي", t: "text" },
-    { k: "price_en", l: "السعر إنجليزي", t: "text" },
-    { k: "items_ar", l: "العناصر عربي (كل عنصر في سطر)", t: "arr", full: true },
-    { k: "items_en", l: "العناصر إنجليزي (كل عنصر في سطر)", t: "arr", full: true },
-    { k: "featured", l: "باقة مميزة", t: "chk" },
-    { k: "sort", l: "الترتيب", t: "number" }
+    { k: "icon", l: "الأيقونة (إيموجي)", col: "icon" },
+    { k: "title", l: "اسم الباقة", cols: ["title_ar", "title_en"] },
+    { k: "price", l: "السعر", cols: ["price_ar", "price_en"] },
+    { k: "items", l: "عناصر الباقة (كل عنصر في سطر)", cols: ["items_ar", "items_en"], arr: true, full: true },
+    { k: "featured", l: "باقة مميزة (تظهر بشكل بارز)", col: "featured", chk: true }
   ],
   testimonials: [
-    { k: "id", l: "المعرف id", t: "text" },
-    { k: "name_ar", l: "الاسم عربي", t: "text" },
-    { k: "name_en", l: "الاسم إنجليزي", t: "text" },
-    { k: "role_ar", l: "الوظيفة عربي", t: "text" },
-    { k: "role_en", l: "الوظيفة إنجليزي", t: "text" },
-    { k: "stars", l: "النجوم (1-5)", t: "number" },
-    { k: "quote_ar", l: "الرأي عربي", t: "area", full: true },
-    { k: "quote_en", l: "الرأي إنجليزي", t: "area", full: true },
-    { k: "sort", l: "الترتيب", t: "number" }
+    { k: "name", l: "اسم صاحب الرأي", cols: ["name_ar", "name_en"] },
+    { k: "role", l: "الوظيفة", cols: ["role_ar", "role_en"] },
+    { k: "stars", l: "التقييم بالنجوم (1 إلى 5)", col: "stars", num: true },
+    { k: "quote", l: "نص الرأي", cols: ["quote_ar", "quote_en"], area: true, full: true }
   ],
   banners: [
-    { k: "id", l: "المعرف id", t: "text" },
-    { k: "image", l: "صورة البانر (ارفعها من جهازك - يفضل نسبة 2.3)", t: "text", full: true, up: true },
-    { k: "link", l: "رابط يفتح عند الضغط (اختياري)", t: "text", full: true },
-    { k: "sort", l: "الترتيب", t: "number" }
+    { k: "image", l: "صورة البانر (نسبة عرض أوسع من الطول)", col: "image", up: true },
+    { k: "link", l: "الرابط اللي بيفتح عند الضغط (اختياري)", col: "link", full: true }
   ]
 };
 
@@ -158,6 +137,8 @@ let ROW_CACHE = {};
 let SB_URL = "";
 let REVIEW_CACHE = {};
 let MSG_CACHE = {};
+let modalLang = "ar";
+let modalDraft = {};
 
 function $id(s) { return document.getElementById(s); }
 
@@ -279,10 +260,13 @@ function applyCustomNum() {
 /* ===== LISTS ===== */
 async function loadTab(t) {
   if (t === "content") { await loadContentForm(); return; }
-  if (t === "company") { await loadCompanyForm(); return; }
   if (t === "home") return;
   if (t === "messages") { await loadMessages(); return; }
-  if (t === "reviews") { await loadReviews(); return; }
+  if (t === "testimonials") { await loadCards("testimonials"); await loadReviews(); return; }
+  await loadCards(t);
+}
+
+async function loadCards(t) {
   const box = $id("cards-" + t);
   if (!box) return;
   box.innerHTML = '<div class="filler">... جارٍ التحميل</div>';
@@ -409,7 +393,7 @@ const CONTENT_GROUPS = [
   { g: "الآراء والمعرض", ks: ["testi-title", "gallery-title"] },
   { g: "التواصل", ks: ["contact-title", "contact-sub", "contact-send", "contact-loc"] },
   { g: "الفوتر (آخر الموقع)", ks: ["footer-about", "footer-links-title", "footer-contact-title", "footer-loc", "footer-copy"] },
-  { g: "بيانات الشركة (اتبعها من تبويب بيانات الشركة)", ks: ["site-phone", "site-email", "site-whatsapp", "site-facebook", "site-instagram"] },
+  { g: "بيانات التواصل (تليفون / إيميل / واتساب / سوشيال) — كل رقم أو إيميل في سطر", ks: ["site-phone", "site-email", "site-whatsapp", "site-facebook", "site-instagram"] },
   { g: "الخطوط", ks: ["site-font"] }
 ];
 function contentItemHtml(k, cur, def) {
@@ -521,115 +505,209 @@ async function saveCompany() {
   if (error) toast("فشل الحفظ: " + error.message, false); else { toast("اتحفظت بيانات الشركة", true); reloadPreview(); }
 }
 
-/* ===== MODAL ===== */
+/* ===== MODAL (فورم إضافة / تعديل مبسّط) ===== */
+function splitLines(v) { return String(v || "").split("\n").map((s) => s.trim()).filter(Boolean); }
+
+function fieldCurrentVal(f) {
+  const d = modalDraft[f.k];
+  if (d != null && d.ar !== undefined) return modalLang === "en" ? d.en : d.ar;
+  return d == null ? "" : d.v;
+}
+function fieldSetVal(f, val) {
+  const d = modalDraft[f.k];
+  if (d != null && d.ar !== undefined) { if (modalLang === "en") d.en = val; else d.ar = val; }
+  else d.v = val;
+}
+function syncDraftFromInputs() {
+  document.querySelectorAll("#modalBody [data-fk]").forEach((inp) => {
+    const f = FIELDS[currentEntity].find((x) => x.k === inp.dataset.fk);
+    if (f) fieldSetVal(f, inp.dataset.type === "chk" ? !!inp.checked : inp.value);
+  });
+}
+function syncInputsFromDraft() {
+  document.querySelectorAll("#modalBody [data-fk]").forEach((inp) => {
+    const f = FIELDS[currentEntity].find((x) => x.k === inp.dataset.fk);
+    if (!f) return;
+    if (inp.dataset.type === "chk") inp.checked = !!fieldCurrentVal(f);
+    else inp.value = fieldCurrentVal(f) ?? "";
+  });
+}
+
+function buildField(f, row) {
+  const wrap = document.createElement("div");
+  if (f.full) wrap.className = "full";
+  const label = document.createElement("label");
+  label.textContent = f.l;
+  wrap.appendChild(label);
+  let inp;
+  if (f.arr) {
+    inp = document.createElement("textarea");
+    inp.value = fieldCurrentVal(f) || "";
+    inp.style.minHeight = "90px";
+    inp.dataset.type = "arr";
+  } else if (f.area) {
+    inp = document.createElement("textarea");
+    inp.value = fieldCurrentVal(f) || "";
+    inp.style.minHeight = "70px";
+    inp.dataset.type = "area";
+  } else if (f.chk) {
+    wrap.className = "full chk";
+    inp = document.createElement("input");
+    inp.type = "checkbox";
+    inp.checked = !!fieldCurrentVal(f);
+    inp.dataset.type = "chk";
+    wrap.appendChild(inp);
+    wrap.removeChild(label);
+    wrap.appendChild(label);
+  } else if (f.select) {
+    inp = document.createElement("select");
+    f.select.forEach((pair) => {
+      const op = document.createElement("option");
+      op.value = pair[0]; op.textContent = pair[1];
+      if (pair[0] === fieldCurrentVal(f)) op.selected = true;
+      inp.appendChild(op);
+    });
+    inp.dataset.type = "select";
+  } else {
+    inp = document.createElement("input");
+    inp.value = fieldCurrentVal(f) ?? "";
+    inp.type = f.num ? "number" : "text";
+    inp.dataset.type = f.num ? "number" : "text";
+  }
+  inp.dataset.fk = f.k;
+  inp.id = "fld-" + f.k;
+  inp.addEventListener("input", () => fieldSetVal(f, inp.dataset.type === "chk" ? !!inp.checked : inp.value));
+  wrap.appendChild(inp);
+
+  if (f.up) {
+    let prev = null;
+    const val = row[f.col];
+    if (val) {
+      prev = document.createElement("img");
+      prev.className = "up-preview";
+      prev.src = val;
+      wrap.appendChild(prev);
+    }
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn-ghost btn-up";
+    btn.textContent = "📤 رفع صورة من جهازك";
+    btn.onclick = () => pickUpload(currentEntity, false, (urls) => {
+      if (!urls[0]) return;
+      inp.value = urls[0];
+      modalDraft[f.k].v = urls[0];
+      if (prev) { prev.src = urls[0]; prev.style.display = "block"; }
+      else {
+        prev = document.createElement("img");
+        prev.className = "up-preview";
+        prev.src = urls[0];
+        wrap.insertBefore(prev, btn);
+      }
+      toast("اترفعت الصورة", true);
+    });
+    wrap.appendChild(btn);
+  }
+  if (f.ups) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "btn-ghost btn-up";
+    btn.textContent = "📤 رفع صور من جهازك";
+    btn.onclick = () => pickUpload(f.ups, true, (urls) => {
+      if (!urls.length) return;
+      const cur = inp.value ? inp.value.split("\n").filter(Boolean) : [];
+      inp.value = cur.concat(urls).join("\n");
+      modalDraft[f.k].v = inp.value;
+      toast("اترفعت " + urls.length + " صورة", true);
+    });
+    wrap.appendChild(btn);
+  }
+  return wrap;
+}
+
 function openModal(t, id) {
   currentEntity = t;
   currentEditId = id || null;
-  const titles = { properties: "عقار", categories: "قسم", packages: "باقة", testimonials: "رأي عميل", banners: "بانر" };
-  $id("modalTitle").textContent = (currentEditId ? "تعديل" : "إضافة") + " - " + (titles[t] || t);
+  const titles = { properties: "عقار", categories: "قسم معرض", packages: "باقة تشطيب", testimonials: "رأي", banners: "بانر" };
+  $id("modalTitle").textContent = (currentEditId ? "تعديل" : "إضافة") + " " + (titles[t] || t);
   const body = $id("modalBody");
   body.innerHTML = "";
-  const fields = FIELDS[t];
   const row = (ROW_CACHE[t] && ROW_CACHE[t][id]) || {};
-  fields.forEach((f) => {
-    const val = row[f.k];
-    const label = document.createElement("label");
-    label.textContent = f.l;
-    const wrap = document.createElement("div");
-    if (f.full) wrap.className = "full";
-    wrap.appendChild(label);
-    let inp;
-    if (f.t === "arr") {
-      inp = document.createElement("textarea");
-      inp.value = (Array.isArray(val) ? val.join("\n") : val) || "";
-      inp.dataset.type = "arr";
-    } else if (f.t === "area") {
-      inp = document.createElement("textarea");
-      inp.value = val ?? "";
-      inp.dataset.type = "area";
-    } else if (f.t === "chk") {
-      wrap.className = "full chk";
-      inp = document.createElement("input");
-      inp.type = "checkbox";
-      inp.checked = !!val;
-      inp.dataset.type = "chk";
-      wrap.appendChild(inp);
-      wrap.removeChild(label);
-      wrap.appendChild(label);
-    } else if (f.t === "select") {
-      inp = document.createElement("select");
-      f.opts.forEach((o) => { const op = document.createElement("option"); op.value = o; op.textContent = o; if (o === val) op.selected = true; inp.appendChild(op); });
-      inp.dataset.type = "select";
-    } else {
-      inp = document.createElement("input");
-      inp.value = val ?? "";
-      inp.type = f.t === "number" ? "number" : "text";
-      inp.dataset.type = f.t === "number" ? "number" : "text";
-    }
-    inp.dataset.fk = f.k;
-    inp.id = "fld-" + f.k;
-    wrap.appendChild(inp);
-    if (f.up) {
-      let prev = null;
-      if (val) {
-        prev = document.createElement("img");
-        prev.className = "up-preview";
-        prev.src = val;
-        wrap.appendChild(prev);
-      }
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn-ghost btn-up";
-      btn.textContent = "📤 رفع صورة من جهازك";
-      btn.onclick = () => pickUpload(t, false, (urls) => {
-        if (!urls[0]) return;
-        inp.value = urls[0];
-        if (prev) { prev.src = urls[0]; prev.style.display = "block"; }
-        else {
-          prev = document.createElement("img");
-          prev.className = "up-preview";
-          prev.src = urls[0];
-          wrap.insertBefore(prev, btn);
-        }
-        toast("اترفعت الصورة", true);
-      });
-      wrap.appendChild(btn);
-    }
-    if (f.ups) {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn-ghost btn-up";
-      btn.textContent = "📤 رفع صور من جهازك";
-      btn.onclick = () => pickUpload(f.ups, true, (urls) => {
-        if (!urls.length) return;
-        const cur = inp.value ? inp.value.split("\n").filter(Boolean) : [];
-        cur.push(...urls);
-        inp.value = cur.join("\n");
-        toast("اترفعت " + urls.length + " صورة", true);
-      });
-      wrap.appendChild(btn);
-    }
-    body.appendChild(wrap);
+  modalDraft = {};
+  modalLang = "ar";
+
+  FIELDS[t].forEach((f) => {
+    const norm = (v) => (Array.isArray(v) ? v.join("\n") : (v ?? ""));
+    if (f.cols) modalDraft[f.k] = { ar: norm(row[f.cols[0]]), en: norm(row[f.cols[1]]) };
+    else modalDraft[f.k] = { v: f.chk ? !!row[f.col] : norm(row[f.col]) };
   });
+
+  /* عناصر جديدة: قيم افتراضية مريحة */
+  if (!currentEditId) {
+    if (t === "properties") {
+      modalDraft["type"].v = "sale";
+      modalDraft["badge"].ar = "للبيع"; modalDraft["badge"].en = "For Sale";
+      modalDraft["beds"].v = "2"; modalDraft["baths"].v = "2";
+    }
+    if (t === "testimonials") modalDraft["stars"].v = "5";
+  }
+
+  /* شريط اللغة: اكتب بالعربي والإنجليزي بيتسجل تلقائيًا */
+  const langBar = document.createElement("div");
+  langBar.className = "full lang-bar";
+  langBar.innerHTML =
+    '<label>اللغة اللي بتكتب بيها</label>' +
+    '<div class="lang-bar-row"><select id="modalLangSel">' +
+    '<option value="ar">العربية</option>' +
+    '<option value="en">English (اختياري)</option>' +
+    "</select>" +
+    '<small>الإنجليزي بيتسجل تلقائيًا من العربي — ولو عايز كلام مختلف بالإنجليزي بدّله من هنا.</small></div>';
+  body.appendChild(langBar);
+  $id("modalLangSel").addEventListener("change", (e) => {
+    syncDraftFromInputs();
+    modalLang = e.target.value;
+    syncInputsFromDraft();
+  });
+
+  FIELDS[t].forEach((f) => body.appendChild(buildField(f, row)));
   $id("modal").classList.remove("hidden");
 }
 
-function closeModal() { $id("modal").classList.add("hidden"); currentEditId = null; }
+function closeModal() { $id("modal").classList.add("hidden"); currentEditId = null; modalDraft = {}; }
 
 async function saveModal() {
-  if (currentEntity === "company") { await saveCompanyAdd(); return; }
+  syncDraftFromInputs();
   const t = currentEntity;
   const row = {};
-  document.querySelectorAll("#modalBody [data-fk]").forEach((inp) => {
-    const k = inp.dataset.fk;
-    if (inp.dataset.type === "arr") row[k] = inp.value.split("\n").map((s) => s.trim()).filter(Boolean);
-    else if (inp.dataset.type === "chk") row[k] = inp.checked;
-    else if (inp.dataset.type === "number") row[k] = inp.value === "" ? null : Number(inp.value);
-    else row[k] = inp.value.trim();
+  FIELDS[t].forEach((f) => {
+    const d = modalDraft[f.k];
+    if (f.cols) {
+      let ar = d.ar, en = d.en;
+      if (f.arr) { ar = splitLines(ar); en = splitLines(en); if (!en.length) en = ar.slice(); }
+      else { ar = (ar || "").trim(); en = (en || "").trim(); if (!en) en = ar; }
+      row[f.cols[0]] = ar; row[f.cols[1]] = en;
+    } else if (f.arr) {
+      row[f.col] = splitLines(d.v);
+    } else if (f.chk) {
+      row[f.col] = !!d.v;
+    } else if (f.num) {
+      row[f.col] = d.v === "" || d.v == null ? null : Number(d.v);
+    } else {
+      row[f.col] = typeof d.v === "string" ? d.v.trim() : d.v;
+    }
   });
-  if (!row.id) row.id = (t === "properties" ? "p" : t === "categories" ? "cat" : t === "packages" ? "pack" : t === "banners" ? "bn" : "t") + "-" + Date.now().toString(36);
+  if (!row.id) {
+    const pre = t === "properties" ? "p" : t === "categories" ? "cat" : t === "packages" ? "pkg" : t === "testimonials" ? "t" : "bn";
+    row.id = pre + "-" + Date.now().toString(36);
+    row.sort = Math.max(0, ...Object.values(ROW_CACHE[t] || {}).map((r) => r.sort || 0)) + 1;
+  }
   const { error } = await sb.from(TABLE_NAMES[t]).upsert(row, { onConflict: CONFLICT[t] });
-  if (error) toast("فشل الحفظ: " + error.message, false); else { toast("اتحفظ", true); closeModal(); loadTab(t); reloadPreview(); }
+  if (error) toast("فشل الحفظ: " + error.message, false);
+  else {
+    toast("اتحفظ وظهر على الموقع", true);
+    closeModal();
+    loadTab(t);
+    reloadPreview();
+  }
 }
 
 /* ===== الرسائل من فورم "تواصل معنا" ===== */
