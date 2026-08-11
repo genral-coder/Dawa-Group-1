@@ -36,7 +36,7 @@ function waNumber() {
   const c = window.SITE && window.SITE.content;
   const v = c && c["site-whatsapp"] ? c["site-whatsapp"].en : "";
   const first = v ? v.split("\n")[0].trim() : "";
-  return first ? first.replace(/[^\d]/g, "") : "201117816248";
+  return first ? first.replace(/[^\d]/g, "") : "201067666612";
 }
 
 function findProperty() {

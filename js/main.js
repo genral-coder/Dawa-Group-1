@@ -574,7 +574,7 @@ function closeImageOverlay() {
 function waNumber() {
   const v = companyVal("site-whatsapp");
   const first = v ? v.split("\n")[0].trim() : "";
-  return first ? first.replace(/[^\d]/g, "") : "201117816248";
+  return first ? first.replace(/[^\d]/g, "") : "201067666612";
 }
 function postToTable(table, payload) {
   const cfg = window.SUPABASE || {};
