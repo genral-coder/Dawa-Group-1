@@ -597,10 +597,17 @@ function initContactForm() {
     const btn = form.querySelector("button");
     btn.textContent = currentLang === "ar" ? "جاري الإرسال..." : "Sending...";
     window.open(`https://wa.me/${waNumber()}?text=${msg}`, "_blank");
+    const successEl = document.getElementById("contactSuccess");
+    if (successEl) {
+      successEl.style.display = "block";
+      successEl.textContent = currentLang === "ar"
+        ? successEl.getAttribute("data-ar")
+        : successEl.getAttribute("data-en");
+    }
     setTimeout(() => {
-      btn.textContent = currentLang === "ar" ? "تم إرسال الرسالة ✓" : "Message sent ✓";
+      btn.textContent = currentLang === "ar" ? "تم إرسال الطلب ✓" : "Request sent ✓";
       form.reset();
-      setTimeout(() => { btn.textContent = currentLang === "ar" ? "إرسال" : "Send"; }, 3000);
+      setTimeout(() => { btn.textContent = currentLang === "ar" ? "إرسال الطلب" : "Send Request"; }, 3000);
     }, 800);
   });
 }
