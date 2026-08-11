@@ -315,6 +315,7 @@ function renderProperties() {
           <span>📐 ${p.area[lang]}</span>
         </div>
         <a class="card-link" href="property.html?id=${p.id}">${lang === "ar" ? "عرض التفاصيل" : "View Details"} ←</a>
+        <a class="card-link book-link" href="https://wa.me/${waNumber()}?text=${encodeURIComponent(lang === "ar" ? "أريد حجز معاينة لعقار: " + p.title.ar : "I want to book a viewing for: " + p.title.en)}" target="_blank" rel="noopener">${lang === "ar" ? "احجز معاينة" : "Book a Viewing"} 📅</a>
       </div>
     </div>
   `).join("");

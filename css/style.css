@@ -870,6 +870,24 @@ nav.scrolled {
   color: var(--gold-light);
 }
 
+.property-card .card-link.book-link {
+  display: block;
+  text-align: center;
+  margin-top: 0.9rem;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, #25d366, #128c7e);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.property-card .card-link.book-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+  color: #fff;
+}
+
 .section-btn-wrap {
   text-align: center;
   margin-top: 3.5rem;
