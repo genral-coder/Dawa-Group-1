@@ -591,7 +591,6 @@ function initContactForm() {
     const phone = document.getElementById("cPhone").value;
     const email = document.getElementById("cEmail").value;
     const details = document.getElementById("cDetails").value;
-    postToTable("messages", { name, phone: phone || "", email: email || "", details, status: "new" }).catch(() => {});
     const msg = currentLang === "ar"
       ? `استفسار جديد من ${name}%0Aرقم الهاتف: ${phone}%0Aالتفاصيل: ${details}`
       : `New inquiry from ${name}%0APhone: ${phone}%0ADetails: ${details}`;
