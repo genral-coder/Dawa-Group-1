@@ -315,7 +315,6 @@ function renderProperties() {
           <span>📐 ${p.area[lang]}</span>
         </div>
         <a class="card-link" href="property.html?id=${p.id}">${lang === "ar" ? "عرض التفاصيل" : "View Details"} ←</a>
-        <a class="card-link book-link" href="#" onclick="return bookViewing(event, '${p.id}')">${lang === "ar" ? "احجز معاينة" : "Book a Viewing"} 📅</a>
       </div>
     </div>
   `).join("");
@@ -572,16 +571,6 @@ function closeImageOverlay() {
 }
 
 /* ===== CONTACT ===== */
-function bookViewing(e, id) {
-  if (e) e.preventDefault();
-  const lang = currentLang;
-  const props = (window.SITE && window.SITE.properties.length) ? window.SITE.properties : window.DAWA_DATA.properties;
-  const p = props.find((x) => String(x.id) === String(id));
-  const name = p ? (p.title[lang] || p.title.ar || "") : "";
-  const msg = (lang === "ar" ? "أريد حجز معاينة لعقار: " : "I want to book a viewing for: ") + name;
-  window.open("https://wa.me/" + waNumber() + "?text=" + encodeURIComponent(msg), "_blank");
-  return false;
-}
 function waNumber() {
   const v = companyVal("site-whatsapp");
   const first = v ? v.split("\n")[0].trim() : "";
