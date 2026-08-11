@@ -1,5 +1,5 @@
 /* DAWA Group - property details page */
-let currentLang = localStorage.getItem("dawa-lang") || "en";
+let currentLang = localStorage.getItem("dawa-lang") || "ar";
 let currentProp = null;
 
 const PER_FONTS = {

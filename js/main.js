@@ -1,7 +1,7 @@
 /* DAWA Group - main.js */
 
 /* ===== LANGUAGE (AR text only / EN fixed layout) ===== */
-let currentLang = localStorage.getItem("dawa-lang") || "en";
+let currentLang = localStorage.getItem("dawa-lang") || "ar";
 
 const escAttr = (s) => String(s || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
