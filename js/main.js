@@ -300,7 +300,7 @@ function renderProperties() {
   if (!grid) return;
   const lang = currentLang;
   const props = (window.SITE && window.SITE.properties.length) ? window.SITE.properties : window.DAWA_DATA.properties;
-  grid.innerHTML = props.slice(0, 20).map((p) => `
+  grid.innerHTML = props.map((p) => `
     <div class="property-card hidden-zoom">
       <div class="img-wrap">
         <img src="${p.image}" alt="${p.title[lang]}">
