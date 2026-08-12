@@ -282,7 +282,7 @@ nav.scrolled {
   overflow: hidden;
 }
 
-/* full-width auto-rotating banner (crossfades real-1 / real-2) */
+/* full-width auto-rotating banner */
 .hero-banner {
   width: 100%;
   position: relative;

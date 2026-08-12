@@ -370,7 +370,6 @@ async function importDefaults(t) {
     }));
   } else if (t === "banners") {
     rows = [
-      { id: "bn-1", sort: 1, image: "assets/properties/real-1.jpg", link: "" },
       { id: "bn-2", sort: 2, image: "assets/properties/real-2.jpg", link: "" }
     ];
   } else if (t === "content") {

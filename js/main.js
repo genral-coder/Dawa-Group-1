@@ -24,7 +24,7 @@ function loadPerFont(k) {
   document.head.appendChild(l);
 }
 
-const DEFAULT_BANNERS = ["assets/properties/real-1.jpg", "assets/properties/real-2.jpg"];
+const DEFAULT_BANNERS = ["assets/properties/real-2.jpg"];
 
 function siteText(key, ar, en) {
   const s = window.SITE && window.SITE.content && window.SITE.content[key];

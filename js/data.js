@@ -3,8 +3,8 @@ window.DAWA_DATA = {
   properties: [
     {
       id: "p1",
-      image: "assets/properties/real-1.jpg",
-      gallery: ["assets/properties/real-1.jpg", "assets/properties/real-2.jpg", "assets/gallery/g1.svg", "assets/gallery/g4.svg"],
+      image: "assets/properties/real-2.jpg",
+      gallery: ["assets/properties/real-2.jpg", "assets/gallery/g1.svg", "assets/gallery/g4.svg"],
       badge: { ar: "للبيع", en: "For Sale" },
       type: "sale",
       price: { ar: "4,800,000 ج.م", en: "EGP 4,800,000" },
@@ -25,7 +25,7 @@ window.DAWA_DATA = {
     {
       id: "p2",
       image: "assets/properties/real-2.jpg",
-      gallery: ["assets/properties/real-2.jpg", "assets/properties/real-1.jpg", "assets/gallery/g3.svg", "assets/gallery/g7.svg"],
+      gallery: ["assets/properties/real-2.jpg", "assets/gallery/g3.svg", "assets/gallery/g7.svg"],
       badge: { ar: "للبيع", en: "For Sale" },
       type: "sale",
       price: { ar: "2,900,000 ج.م", en: "EGP 2,900,000" },
