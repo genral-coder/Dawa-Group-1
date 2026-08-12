@@ -133,7 +133,8 @@ function renderDetails() {
           <div><span>${L === "ar" ? "الغرف" : "Bedrooms"}</span><b>${p.beds}</b></div>
           <div><span>${L === "ar" ? "الحمامات" : "Bathrooms"}</span><b>${p.baths}</b></div>
         </div>
-        <a class="btn-gold" href="index.html#contact">${L === "ar" ? "احجز معاينة" : "Book a Viewing"}</a>
+        <a class="btn-gold" target="_blank"
+           href="https://wa.me/${waNumber()}?text=${L === "ar" ? "أرغب في حجز معاينة للعقار: " + encodeURIComponent(p.title[L]) : "I would like to book a viewing for: " + encodeURIComponent(p.title[L])}">${L === "ar" ? "احجز معاينة" : "Book a Viewing"}</a>
         <a class="whatsapp" target="_blank"
            href="https://wa.me/${waNumber()}?text=${L === "ar" ? "أنا مهتم بالعقار: " + encodeURIComponent(p.title[L]) : "I'm interested in: " + encodeURIComponent(p.title[L])}">
           WhatsApp
