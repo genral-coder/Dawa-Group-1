@@ -74,7 +74,7 @@ function toggleLang() {
 
 /* ===== THEME (dark / light) ===== */
 function applyTheme() {
-  const t = localStorage.getItem("dawa-theme") || "dark";
+  const t = localStorage.getItem("dawa-theme") || "light";
   document.documentElement.setAttribute("data-theme", t);
   const b = document.getElementById("themeToggle");
   if (b) b.textContent = t === "dark" ? "🌙" : "☀️";
