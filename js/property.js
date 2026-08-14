@@ -95,7 +95,6 @@ function renderDetails() {
   const specs = [
     { k: L === "ar" ? "المساحة" : "Area", v: p.area[L] },
     { k: L === "ar" ? "غرف النوم" : "Bedrooms", v: p.beds },
-    { k: L === "ar" ? "الحمامات" : "Bathrooms", v: p.baths },
     { k: L === "ar" ? "الموقع" : "Location", v: p.location[L] },
     { k: L === "ar" ? "نوع العقار" : "Property Type", v: p.badge[L] }
   ];
@@ -131,7 +130,6 @@ function renderDetails() {
           <div><span>${L === "ar" ? "الموقع" : "Location"}</span><b>${p.location[L]}</b></div>
           <div><span>${L === "ar" ? "المساحة" : "Area"}</span><b>${p.area[L]}</b></div>
           <div><span>${L === "ar" ? "الغرف" : "Bedrooms"}</span><b>${p.beds}</b></div>
-          <div><span>${L === "ar" ? "الحمامات" : "Bathrooms"}</span><b>${p.baths}</b></div>
         </div>
         <a class="btn-gold" target="_blank"
            href="https://wa.me/${waNumber()}?text=${L === "ar" ? "أرغب في حجز معاينة للعقار: " + encodeURIComponent(p.title[L]) : "I would like to book a viewing for: " + encodeURIComponent(p.title[L])}">${L === "ar" ? "احجز معاينة" : "Book a Viewing"}</a>
