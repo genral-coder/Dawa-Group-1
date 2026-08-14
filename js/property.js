@@ -79,6 +79,19 @@ function toggleLang() {
   applyLang();
 }
 
+/* ===== THEME (dark / light) ===== */
+function applyTheme() {
+  const t = localStorage.getItem("dawa-theme") || "dark";
+  document.documentElement.setAttribute("data-theme", t);
+  const b = document.getElementById("themeToggle");
+  if (b) b.textContent = t === "dark" ? "🌙" : "☀️";
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute("data-theme");
+  localStorage.setItem("dawa-theme", cur === "light" ? "dark" : "light");
+  applyTheme();
+}
+
 function setMainImage(i) {
   document.getElementById("mainImg").src = currentProp.gallery[i];
   document.querySelectorAll(".thumbs img").forEach((t, idx) => {
@@ -152,6 +165,7 @@ function renderDetails() {
 
 document.addEventListener("DOMContentLoaded", async () => {
   window.SITE = await window.SiteData.get();
+  applyTheme();
   if (window.SiteFont) window.SiteFont.apply();
   applyCompanyData();
   currentProp = findProperty();

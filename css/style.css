@@ -2373,3 +2373,117 @@ footer {
   #reviewForm #rvQuote { grid-column: auto; }
   #reviewForm button { grid-column: auto; }
 }
+
+/* ===== LIGHT THEME ===== */
+html[data-theme="light"] {
+  --bg: #eef2f7;
+  --panel: #ffffff;
+  --panel-2: #e6ecf4;
+  --text: #101828;
+  --muted: #55637a;
+  color-scheme: light;
+}
+
+html[data-theme="light"] body { background-image: none; }
+
+/* NAV */
+html[data-theme="light"] nav {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+html[data-theme="light"] nav.scrolled { background-color: rgba(255, 255, 255, 0.96); }
+html[data-theme="light"] .gx-logo img { background: #e6ecf4; }
+html[data-theme="light"] .navbar-list a { color: #101828; }
+html[data-theme="light"] .lang-toggle { border-color: rgba(0, 0, 0, 0.25); color: #101828; }
+html[data-theme="light"] .navbar-list.active { background-color: rgba(255, 255, 255, 0.98); }
+
+/* HERO */
+html[data-theme="light"] .hero::before {
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 30%, #eef2f7 90%);
+}
+html[data-theme="light"] .hero-content .text2 { color: var(--text); }
+html[data-theme="light"] .hero-cta .btn-ghost { border-color: rgba(0, 0, 0, 0.3); color: #101828; }
+html[data-theme="light"] .social img { filter: invert(0); }
+html[data-theme="light"] .social a { border-color: rgba(0, 0, 0, 0.25); }
+
+/* CARDS */
+html[data-theme="light"] .card { color: #101828; }
+html[data-theme="light"] .card-style { box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12); }
+html[data-theme="light"] .card-style img { filter: invert(0.35) sepia(1) saturate(4) hue-rotate(5deg); }
+
+/* WHAT IS DAWA */
+html[data-theme="light"] .what-is-dawa { color: #101828; }
+html[data-theme="light"] .what-is-dawa .logo-big { background: radial-gradient(circle at 30% 30%, #ffffff, #dde6f0); }
+html[data-theme="light"] .what-is-dawa .content .text { color: var(--muted); }
+html[data-theme="light"] .what-is-dawa .feature { border-color: rgba(0, 0, 0, 0.08); }
+html[data-theme="light"] .what-is-dawa .feature:hover { background: rgba(0, 0, 0, 0.04); }
+
+/* STATS */
+html[data-theme="light"] .stats-band { border-color: rgba(0, 0, 0, 0.08); }
+
+/* PROPERTY CARD */
+html[data-theme="light"] .property-card { border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1); }
+html[data-theme="light"] .property-card:hover { box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18); }
+html[data-theme="light"] .property-card .price { background: rgba(255, 255, 255, 0.9); color: #007a9e; }
+html[data-theme="light"] .property-card .specs { border-color: rgba(0, 0, 0, 0.08); color: #475467; }
+
+/* SERVICE SECTIONS */
+html[data-theme="light"] .service-section { color: #101828; }
+html[data-theme="light"] .service-section .content .description { color: #475467; }
+html[data-theme="light"] .service-section .service-item { background: rgba(255, 255, 255, 0.75); border-color: rgba(0, 0, 0, 0.1); color: #101828; }
+html[data-theme="light"] .service-realestate .tag { background: rgba(0, 0, 0, 0.05); color: #007a9e; }
+html[data-theme="light"] .service-finishing .tag { background: rgba(0, 0, 0, 0.05); color: #0e9e8f; }
+html[data-theme="light"] .service-contracting .tag { background: rgba(0, 0, 0, 0.05); color: #7c3aed; }
+
+/* PACKAGES */
+html[data-theme="light"] .package { border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 25px 50px rgba(15, 23, 42, 0.1); }
+html[data-theme="light"] .package.featured-pack { background: linear-gradient(180deg, #ffffff, var(--panel)); }
+html[data-theme="light"] .package ul li { color: #475467; }
+
+/* TEAM */
+html[data-theme="light"] .team-members .title { color: #101828; }
+html[data-theme="light"] .team-members .card::before { color: #101828; }
+
+/* TESTIMONIALS / REVIEW */
+html[data-theme="light"] .testi { border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08); }
+html[data-theme="light"] .testi .quote { color: #475467; }
+html[data-theme="light"] .rv-stars { color: #475467; }
+html[data-theme="light"] .testi-star-select span { color: #94a3b8; }
+html[data-theme="light"] .review-form { border-color: rgba(0, 0, 0, 0.08); }
+html[data-theme="light"] #reviewForm input,
+html[data-theme="light"] #reviewForm textarea { background: #f4f7fb; border-color: rgba(0, 0, 0, 0.12); color: #101828; }
+
+/* GALLERY SLIDER */
+html[data-theme="light"] .slider { color: #101828; }
+html[data-theme="light"] .slider-header button { color: #101828; }
+html[data-theme="light"] .slider-controls button { color: #101828; border-color: rgba(0, 0, 0, 0.5); }
+html[data-theme="light"] .work-nav { color: #101828; border-color: rgba(0, 0, 0, 0.4); }
+html[data-theme="light"] .work-nav:hover { background: rgba(0, 0, 0, 0.05); }
+
+/* CONTACT */
+html[data-theme="light"] .contact-us { color: #101828; }
+html[data-theme="light"] input,
+html[data-theme="light"] textarea { color: #101828; border-color: rgba(0, 0, 0, 0.12); background-color: #ffffff; }
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder { color: #98a2b3; }
+html[data-theme="light"] .contact-chip { border-color: rgba(0, 0, 0, 0.08); }
+html[data-theme="light"] .contact-chip .tx { color: #101828; }
+
+/* FOOTER */
+html[data-theme="light"] footer { background-color: #ffffff; border-top-color: rgba(0, 0, 0, 0.08); color: #101828; }
+html[data-theme="light"] .footer-content .usefull-links a { color: #475467; }
+html[data-theme="light"] .footer-content .contact-us-footer h3 { color: #101828; }
+html[data-theme="light"] .copyright { border-top-color: rgba(0, 0, 0, 0.08); }
+
+/* DETAILS PAGE */
+html[data-theme="light"] .details-body p { color: #475467; }
+html[data-theme="light"] .details-gallery .main-img { border-color: rgba(0, 0, 0, 0.08); }
+html[data-theme="light"] .side-card { border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08); }
+html[data-theme="light"] .side-card .meta div { border-bottom-color: rgba(0, 0, 0, 0.08); }
+html[data-theme="light"] .side-card .meta div b { color: #101828; }
+html[data-theme="light"] .spec-box { border-color: rgba(0, 0, 0, 0.08); }
+
+/* TOP BUTTON / SCROLLBAR */
+html[data-theme="light"] .arrow-up { background: rgba(255, 255, 255, 0.9); border-color: rgba(0, 0, 0, 0.3); }
+html[data-theme="light"] ::-webkit-scrollbar-thumb { background: #c0c9d6; }
+html[data-theme="light"] ::-webkit-scrollbar-track { background: #eef2f7; }

@@ -6,7 +6,8 @@
   <meta name="description" content="Dawa Group - Real Estate, Finishing & Contracting">
   <title>Dawa Group | Real Estate, Finishing & Contracting</title>
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script>document.documentElement.setAttribute("data-theme", localStorage.getItem("dawa-theme") || "dark");</script>
 </head>
 <body id="top">
 
@@ -27,6 +28,7 @@
     </div>
     <div class="nav-actions">
       <button class="lang-toggle" id="langToggle" onclick="toggleLang()">عربي</button>
+      <button class="lang-toggle" id="themeToggle" onclick="toggleTheme()" title="Dark / Light">🌙</button>
       <a class="cta-nav" href="#contact" data-ar="تواصل معنا" data-en="Book a Visit">Book a Visit</a>
     </div>
     <div class="burger-icon" id="burger">
@@ -360,6 +362,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/site-data.js"></script>
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>

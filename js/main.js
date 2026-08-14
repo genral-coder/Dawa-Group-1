@@ -72,6 +72,19 @@ function toggleLang() {
   applyLanguage();
 }
 
+/* ===== THEME (dark / light) ===== */
+function applyTheme() {
+  const t = localStorage.getItem("dawa-theme") || "dark";
+  document.documentElement.setAttribute("data-theme", t);
+  const b = document.getElementById("themeToggle");
+  if (b) b.textContent = t === "dark" ? "🌙" : "☀️";
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute("data-theme");
+  localStorage.setItem("dawa-theme", cur === "light" ? "dark" : "light");
+  applyTheme();
+}
+
 /* ===== HERO BANNERS (dynamic from DB) ===== */
 function renderBanners() {
   const wrap = document.querySelector(".hero-banner");
@@ -177,6 +190,7 @@ function initFbChooser() {
 
 document.addEventListener("DOMContentLoaded", async () => {
   window.SITE = await window.SiteData.get();
+  applyTheme();
   applyLanguage();
   if (window.SiteFont) window.SiteFont.apply();
   renderBanners();
