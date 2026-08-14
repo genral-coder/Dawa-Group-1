@@ -311,7 +311,6 @@ function renderProperties() {
         <div class="location">📍 ${p.location[lang]}</div>
         <div class="specs">
           <span>🛏 ${p.beds}</span>
-          <span>🛁 ${p.baths}</span>
           <span>📐 ${p.area[lang]}</span>
         </div>
         <a class="card-link" href="property.html?id=${p.id}">${lang === "ar" ? "عرض التفاصيل" : "View Details"} ←</a>
