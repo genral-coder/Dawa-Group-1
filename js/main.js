@@ -375,7 +375,7 @@ function galleryMap() {
 function renderGallery() {
   const listEl = document.querySelector(".gallery-list");
   const map = galleryMap();
-  const hiddenKeys = ["interiors"];
+  const hiddenKeys = ["interiors", "exteriors"];
   const keys = Object.keys(map).filter((k) => hiddenKeys.indexOf(k) === -1);
   if (keys.length && !map[currentGalleryKey]) currentGalleryKey = keys[0];
   if (listEl) {
